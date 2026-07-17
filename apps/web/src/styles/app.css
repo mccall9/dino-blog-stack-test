@@ -180,9 +180,13 @@
   grid-template-rows: auto minmax(0, 1fr);
   align-content: start;
   gap: 0.85rem;
+  width: 100%;
+  padding: 1rem 0 0.85rem;
+}
+
+.home-body > .discover {
   width: min(calc(100% - 1.75rem), var(--max-wide));
   margin-inline: auto;
-  padding: 1rem 0 0.85rem;
 }
 
 .discover {
@@ -284,15 +288,16 @@
   color: #fff;
 }
 
-/* Card row — further left + slightly lower */
+/* Card row — further left + slightly lower (biip-like) */
 .product-stage {
   min-height: 0;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  width: min(calc(100% - 1.75rem), var(--max-wide));
+  margin-inline: auto;
+  margin-top: 1.15rem;
   padding-left: 0;
-  margin-left: clamp(-0.5rem, -2vw, 0);
-  margin-top: 0.75rem;
   overflow: hidden;
 }
 
