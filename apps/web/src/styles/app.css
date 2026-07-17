@@ -1046,6 +1046,61 @@
   margin-top: 12px;
 }
 
+/* divider + X login (below email CTA, same card) */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line);
+}
+
+.x-login-button {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 10px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.x-login-button:hover:not(:disabled) {
+  background: var(--soft);
+  border-color: #b7bab4;
+}
+
+.x-login-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.x-login-mark {
+  flex: 0 0 auto;
+  display: block;
+}
+
 .otp-input {
   text-align: center;
   font-size: 24px !important;

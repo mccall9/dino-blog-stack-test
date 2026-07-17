@@ -18,13 +18,13 @@ export const Route = createFileRoute("/")({
   }),
 })
 
-const TOPICS = [
+const TOPICS: { id: string; label: string; active?: boolean }[] = [
   { id: "todas", label: "todas", active: true },
   { id: "ideias", label: "ideias" },
   { id: "perguntas", label: "perguntas" },
   { id: "projetos", label: "projetos" },
   { id: "build", label: "build in public" },
-] as const
+]
 
 function ClubHome() {
   const [query, setQuery] = React.useState("")

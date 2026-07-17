@@ -9,8 +9,8 @@ export function SiteHeader({ current = "home" }: Props) {
   const { isLoggedIn, ready } = useSession()
   const navigate = useNavigate()
 
-  function handleLogout() {
-    logoutSession()
+  async function handleLogout() {
+    await logoutSession()
     void navigate({ to: "/" })
   }
 

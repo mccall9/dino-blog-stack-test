@@ -6,6 +6,7 @@ import { Route as CuponsRouteImport } from './routes/cupons'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CommunityClubeDosCuriososRouteImport } from './routes/community.clube-dos-curiosos'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -33,6 +34,11 @@ const CommunityClubeDosCuriososRoute =
     path: '/community/clube-dos-curiosos',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -40,6 +46,7 @@ export interface FileRoutesByFullPath {
   '/cupons': typeof CuponsRoute
   '/login': typeof LoginRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
+  '/auth/callback': typeof AuthCallbackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -47,6 +54,7 @@ export interface FileRoutesByTo {
   '/cupons': typeof CuponsRoute
   '/login': typeof LoginRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
+  '/auth/callback': typeof AuthCallbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -55,6 +63,7 @@ export interface FileRoutesById {
   '/cupons': typeof CuponsRoute
   '/login': typeof LoginRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
+  '/auth/callback': typeof AuthCallbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -64,6 +73,7 @@ export interface FileRouteTypes {
     | '/cupons'
     | '/login'
     | '/community/clube-dos-curiosos'
+    | '/auth/callback'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -71,6 +81,7 @@ export interface FileRouteTypes {
     | '/cupons'
     | '/login'
     | '/community/clube-dos-curiosos'
+    | '/auth/callback'
   id:
     | '__root__'
     | '/'
@@ -78,6 +89,7 @@ export interface FileRouteTypes {
     | '/cupons'
     | '/login'
     | '/community/clube-dos-curiosos'
+    | '/auth/callback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -86,6 +98,7 @@ export interface RootRouteChildren {
   CuponsRoute: typeof CuponsRoute
   LoginRoute: typeof LoginRoute
   CommunityClubeDosCuriososRoute: typeof CommunityClubeDosCuriososRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -125,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommunityClubeDosCuriososRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -134,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   CuponsRoute,
   LoginRoute,
   CommunityClubeDosCuriososRoute,
+  AuthCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
