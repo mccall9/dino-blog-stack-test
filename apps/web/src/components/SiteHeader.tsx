@@ -17,8 +17,8 @@ export function SiteHeader({ current = "home" }: Props) {
             className="brand-mark"
             src="/assets/dino-logo.png"
             alt=""
-            width={28}
-            height={28}
+            width={32}
+            height={32}
             aria-hidden="true"
           />
           <span>dino.blog</span>

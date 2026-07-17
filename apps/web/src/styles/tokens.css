@@ -12,11 +12,12 @@
   --radius: 1rem;
   --radius-lg: 1.15rem;
   --max: 720px;
-  --max-wide: 1040px;
+  --max-wide: 72rem; /* biip max-w-6xl */
   --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --press-duration: 150ms;
   --z-header: 30;
   --z-skip: 50;
-  --header-h: 3.25rem;
+  /* biip: h-16 */
+  --header-h: 4rem;
 }
