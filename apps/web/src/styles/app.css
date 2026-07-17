@@ -136,14 +136,16 @@
   }
 }
 
-/* —— Shell (biip calm) —— */
+/* —— Shell: glass top bar —— */
 .site-header {
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  background: color-mix(in srgb, var(--paper) 92%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid transparent;
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+  backdrop-filter: saturate(1.2) blur(14px);
+  -webkit-backdrop-filter: saturate(1.2) blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset;
 }
 
 .site-nav {
@@ -247,12 +249,43 @@
   font-weight: 500;
 }
 
+.search-wrap {
+  width: min(100%, 28rem);
+  margin-top: 0.15rem;
+}
+
+.search-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 2px rgba(20, 20, 20, 0.04);
+  outline: none;
+  transition:
+    border-color var(--press-duration) var(--ease-out),
+    box-shadow var(--press-duration) var(--ease-out);
+}
+
+.search-input::placeholder {
+  color: #9a9a96;
+}
+
+.search-input:focus {
+  border-color: color-mix(in srgb, var(--ink) 35%, var(--line));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
 .discover-cta {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.65rem;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
 }
 
 .chips {
@@ -260,7 +293,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.45rem;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
 }
 
 .chip {
@@ -282,12 +315,13 @@
   color: #fff;
 }
 
-/* Product card — biip community card, single club */
+/* Product card — left-aligned like biip directory card */
 .product-stage {
   width: min(calc(100% - 2rem), var(--max-wide));
   margin: 0 auto 4rem;
-  display: grid;
-  justify-items: center;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: clamp(0px, 4vw, 2.5rem);
 }
 
 .club-card {

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
+import * as React from "react"
 import { SiteHeader } from "~/components/SiteHeader"
 
 export const Route = createFileRoute("/")({
@@ -26,22 +27,49 @@ const TOPICS = [
 ] as const
 
 function ClubHome() {
+  const [query, setQuery] = React.useState("")
+
   return (
     <div>
       <SiteHeader current="home" />
 
       <main id="conteudo">
-        {/* Fold 1 — marclou: hero alone + one CTA; RCD: problem/desire first */}
         <section className="discover" aria-labelledby="hero-title">
           <span className="stack-pill">stack test · preview</span>
 
           <h1 id="hero-title">Pense em voz alta. Ache quem responde.</h1>
 
           <p className="discover-sub">
-            O <strong className="text-[var(--ink)] font-semibold">Clube dos Curiosos</strong>{" "}
+            O{" "}
+            <strong className="text-[var(--ink)] font-semibold">
+              Clube dos Curiosos
+            </strong>{" "}
             — conversas reais, sem marketplace de comunidades.{" "}
             <Link to="/about">como funciona</Link>
           </p>
+
+          {/* biip: search between copy and primary action */}
+          <form
+            className="search-wrap"
+            role="search"
+            onSubmit={(e) => {
+              e.preventDefault()
+            }}
+          >
+            <label className="sr-only" htmlFor="club-search">
+              Buscar no clube
+            </label>
+            <input
+              id="club-search"
+              className="search-input"
+              type="search"
+              name="q"
+              placeholder="buscar no clube…"
+              autoComplete="off"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </form>
 
           <div className="discover-cta">
             <Link to="/login" className="btn btn-accent">
@@ -49,7 +77,6 @@ function ClubHome() {
             </Link>
           </div>
 
-          {/* Chips = temas do clube, NÃO lista de comunidades (anti-biip marketplace) */}
           <div className="chips" role="list" aria-label="Temas no clube">
             {TOPICS.map((t) => (
               <span
@@ -64,7 +91,7 @@ function ClubHome() {
           </div>
         </section>
 
-        {/* Product before explanation — single club card (biip card pattern, one thing) */}
+        {/* Card left like biip, single club */}
         <section className="product-stage" aria-label="O clube">
           <Link to="/login" className="club-card">
             <div className="club-card-cover">
