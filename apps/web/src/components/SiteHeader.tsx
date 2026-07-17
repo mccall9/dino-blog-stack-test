@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router"
 
 type Props = {
-  current?: "home" | "ideias" | "about" | "login"
+  current?: "home" | "ideias" | "cupons" | "login"
 }
 
 export function SiteHeader({ current = "home" }: Props) {
@@ -32,10 +32,10 @@ export function SiteHeader({ current = "home" }: Props) {
             Ideias
           </Link>
           <Link
-            to="/about"
-            aria-current={current === "about" ? "page" : undefined}
+            to="/cupons"
+            aria-current={current === "cupons" ? "page" : undefined}
           >
-            Sobre
+            Cupons
           </Link>
           <Link to="/login" className="btn btn-primary">
             entrar →

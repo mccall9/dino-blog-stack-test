@@ -54,7 +54,7 @@ function ClubHome() {
               Clube dos Curiosos
             </strong>{" "}
             — conversas reais, sem marketplace de comunidades.{" "}
-            <Link to="/about">como funciona</Link>
+            <Link to="/cupons">ver cupons</Link>
           </p>
 
           <form

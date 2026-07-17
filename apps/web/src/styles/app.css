@@ -643,7 +643,148 @@
   }
 }
 
-/* Simple pages (about/ideias/login) — allow scroll there */
+/* —— Cupons —— */
+.cupons-page {
+  min-height: 100dvh;
+  background: var(--paper);
+}
+
+.cupons-shell {
+  width: min(calc(100% - 2rem), 40rem);
+  margin-inline: auto;
+  padding: 2rem 0 3.5rem;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.cupons-hero h1 {
+  margin: 0.5rem 0 0.65rem;
+  font-size: clamp(1.85rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #171717;
+  text-wrap: balance;
+}
+
+.cupons-hero p {
+  margin: 0 0 1.1rem;
+  color: #525252;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.cupons-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.cupom-card {
+  border: 1px solid #d4d4d4;
+  border-radius: 21px;
+  background: #fff;
+  padding: 1.1rem 1.15rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.cupom-card[data-status="em breve"] {
+  opacity: 0.92;
+}
+
+.cupom-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.cupom-partner {
+  margin: 0 0 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #737373;
+}
+
+.cupom-card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #171717;
+}
+
+.cupom-benefit {
+  margin: 0;
+  color: #525252;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.cupom-badge {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: #f5f5f5;
+  color: #525252;
+  border: 1px solid #d4d4d4;
+}
+
+.cupom-badge[data-status="ativo"] {
+  background: #171717;
+  border-color: #171717;
+  color: #fff;
+}
+
+.cupom-card-bottom {
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed #e5e5e5;
+}
+
+.cupom-code {
+  display: block;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  background: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #171717;
+  text-align: center;
+}
+
+.cupom-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.cupom-expires {
+  font-size: 0.8rem;
+  color: #737373;
+}
+
+.cupons-note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #737373;
+  text-align: center;
+}
+
+/* Simple pages (ideias/login) — allow scroll there */
 .page-simple {
   min-height: 100dvh;
   background: var(--paper);
