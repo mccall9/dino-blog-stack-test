@@ -197,7 +197,7 @@ function LoginPage() {
                 autoComplete="one-time-code"
                 maxLength={OTP_MAX}
                 pattern={`[0-9]{6,${OTP_MAX}}`}
-                placeholder="000000"
+                placeholder="00000000"
                 required
                 value={code}
                 onChange={(e) => setCode(normalizeOtp(e.target.value))}
