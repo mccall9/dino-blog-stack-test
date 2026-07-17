@@ -94,7 +94,7 @@ function ClubHome() {
         </section>
 
         <section className="product-stage" aria-label="O clube">
-          <Link to="/login" className="club-card">
+          <Link to="/community/clube-dos-curiosos" className="club-card">
             <div className="club-card-cover">
               <img
                 src="/assets/dino-blog-hero.png"

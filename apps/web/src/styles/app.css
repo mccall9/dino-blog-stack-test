@@ -460,6 +460,189 @@
   }
 }
 
+/* —— Club detail (card click) —— */
+.detail-page {
+  min-height: 100dvh;
+  background: var(--paper);
+}
+
+.detail-shell {
+  width: min(calc(100% - 2rem), var(--max-wide));
+  margin-inline: auto;
+  padding: 1.25rem 0 3.5rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.detail-back {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #525252;
+  width: fit-content;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .detail-back:hover {
+    color: #171717;
+  }
+}
+
+.detail-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #525252;
+}
+
+.detail-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 2rem 2.5rem;
+  align-items: center;
+}
+
+.detail-hero-copy h1 {
+  margin: 0.6rem 0 0.75rem;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: #171717;
+  text-wrap: balance;
+}
+
+.detail-lede {
+  margin: 0 0 1rem;
+  max-width: 32rem;
+  color: #525252;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.detail-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.detail-topics span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+  color: #525252;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+.detail-meta {
+  font-size: 0.875rem;
+  color: #525252;
+}
+
+.detail-image {
+  margin: 0;
+  border-radius: 21px;
+  overflow: hidden;
+  border: 1px solid #d4d4d4;
+  background: #fff;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.detail-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 1.25rem;
+}
+
+.detail-story,
+.detail-rules {
+  border: 1px solid #d4d4d4;
+  border-radius: 21px;
+  background: #fff;
+  padding: 1.35rem 1.4rem;
+}
+
+.detail-story h2,
+.detail-rules h2 {
+  margin: 0.5rem 0 0.65rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #171717;
+  text-wrap: balance;
+}
+
+.detail-story p {
+  margin: 0;
+  color: #525252;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.detail-rules ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: #525252;
+  line-height: 1.6;
+}
+
+.detail-cta-block {
+  border: 1px solid #d4d4d4;
+  border-radius: 21px;
+  background: #fff;
+  padding: 1.5rem 1.4rem;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+}
+
+.detail-cta-block h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #171717;
+}
+
+.detail-cta-block p {
+  margin: 0;
+  max-width: 28rem;
+  color: #525252;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .detail-hero,
+  .detail-content {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-image {
+    order: -1;
+  }
+}
+
 /* Simple pages (about/ideias/login) — allow scroll there */
 .page-simple {
   min-height: 100dvh;
