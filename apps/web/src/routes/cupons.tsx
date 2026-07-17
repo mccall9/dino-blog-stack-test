@@ -105,14 +105,6 @@ function CuponsPage() {
         <header className="cupons-hero">
           <span className="detail-eyebrow">Benefícios do clube</span>
           <h1>Cupons</h1>
-          <p>
-            Códigos e parcerias para quem participa do Clube dos Curiosos.
-            Entre no clube para desbloquear os exclusivos — aqui no preview
-            você já vê o formato.
-          </p>
-          <Link to="/login" className="btn btn-primary">
-            entrar para desbloquear →
-          </Link>
         </header>
 
         <ul className="cupons-list" aria-label="Lista de cupons">
