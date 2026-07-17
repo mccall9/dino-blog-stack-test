@@ -18,10 +18,8 @@
 1. Email OTP ON, `mailer_autoconfirm` OFF, OTP length **8**
 2. Redirect allow list: localhost + `dino-blog-stack-test` Vercel + `dinoclub.blog`
 
-**Ainda manual (precisa de secrets do X):**
-3. **X / Twitter OAuth 2.0** — criar app em developer.x.com  
-   - Callback: `https://dyqfpgxdkizgcgfzrkbd.supabase.co/auth/v1/callback`  
-   - Colar Client ID/Secret no Dashboard → Providers → X  
-   - Ou mandar as chaves para aplicar via API
+**X OAuth 2.0 — ativado no Supabase** (`external_x_enabled=true`).  
+Confirme no portal X o callback:  
+`https://dyqfpgxdkizgcgfzrkbd.supabase.co/auth/v1/callback`
 
 Production hoje: manutenção em dinoclub.blog (`index.html` offline page).

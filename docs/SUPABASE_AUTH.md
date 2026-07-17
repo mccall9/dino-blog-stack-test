@@ -12,7 +12,7 @@
 | `mailer_otp_length` | `8` |
 | `site_url` | `http://localhost:3000` |
 | `uri_allow_list` | localhost + Vercel stack-test + dinoclub.blog (wildcards) |
-| `external_x_enabled` | `false` — **falta Client ID/Secret do X** |
+| `external_x_enabled` | **`true`** (OAuth 2.0 Client ID/Secret no Dashboard; não versionar secrets) |
 
 Redirects incluídos:
 
@@ -29,31 +29,19 @@ https://www.dinoclub.blog/**
 https://*.dinoclub.blog/**
 ```
 
-## Falta: ativar X (precisa de secrets do developer.x.com)
+## X OAuth 2.0 — ativado
 
-1. Crie app em [developer.x.com](https://developer.x.com/en/portal/dashboard)
-2. User authentication → **OAuth 2.0** → Web App  
-   - Callback URL: `https://dyqfpgxdkizgcgfzrkbd.supabase.co/auth/v1/callback`  
-   - Website: `https://dino-blog-stack-test.vercel.app` (ou dinoclub.blog)  
-   - **Request email from users** = ON
-3. Copie **Client ID** e **Client Secret**
-4. Envie aqui **ou** rode (com access token do dashboard):
+Provider **X / Twitter (OAuth 2.0)** ligado no projeto via Management API  
+(`external_x_enabled=true`, `external_x_email_optional=true`).
 
-```bash
-export SUPABASE_ACCESS_TOKEN="sbp_..."
-export PROJECT_REF="dyqfpgxdkizgcgfzrkbd"
+No app X (User authentication settings), confira:
 
-curl -X PATCH "https://api.supabase.com/v1/projects/$PROJECT_REF/config/auth" \
-  -H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "external_x_enabled": true,
-    "external_x_client_id": "YOUR_X_CLIENT_ID",
-    "external_x_secret": "YOUR_X_CLIENT_SECRET"
-  }'
-```
+- **Type of App:** Web App  
+- **Callback URL:** `https://dyqfpgxdkizgcgfzrkbd.supabase.co/auth/v1/callback`  
+- **Website URL:** preview Vercel ou `https://dinoclub.blog`  
+- **Request email from users:** recomendado ON  
 
-Ou no Dashboard: **Authentication → Providers → X / Twitter (OAuth 2.0)** → ON + colar credenciais.
+> OAuth 1.0a (Consumer Key / Secret / Bearer) é legado — o app usa **OAuth 2.0** (`provider: 'x'`).
 
 ## Prompt para o Supabase AI (Dashboard)
 
