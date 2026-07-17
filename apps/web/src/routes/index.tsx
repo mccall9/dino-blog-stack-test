@@ -46,8 +46,6 @@ function ClubHome() {
 
       <div className="home-body" id="conteudo">
         <section className="discover" aria-labelledby="hero-title">
-          <span className="stack-pill">stack test · preview</span>
-
           <h1 id="hero-title">Pense em voz alta. Ache quem responde.</h1>
 
           <p className="discover-sub">
