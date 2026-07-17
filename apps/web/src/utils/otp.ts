@@ -1,24 +1,26 @@
-/** Preview OTP — stub até Supabase (Fase 2). Código fixo para testar. */
-export const PREVIEW_OTP = "123456"
-export const OTP_LENGTH = 6
+/** Preview OTP — stub até Supabase (mesmo fluxo do blog online). */
+export const OTP_MIN = 6
+export const OTP_MAX = 8
 
 export function isValidEmail(value: string): boolean {
   const email = value.trim()
   if (!email || email.length > 254) return false
-  // enough for preview; real validation lives with Supabase later
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 export function normalizeOtp(value: string): string {
-  return value.replace(/\D/g, "").slice(0, OTP_LENGTH)
+  return value.replace(/\D/g, "").slice(0, OTP_MAX)
 }
 
 export function isCompleteOtp(value: string): boolean {
-  return normalizeOtp(value).length === OTP_LENGTH
+  const n = normalizeOtp(value).length
+  return n >= OTP_MIN && n <= OTP_MAX
 }
 
-/** Simulate “send code” delay. In production this hits the API. */
-export async function requestOtp(email: string): Promise<{ ok: true } | { ok: false; error: string }> {
+/** Simulate “send code” delay. Production: auth.sendEmailCode. */
+export async function requestOtp(
+  email: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
   if (!isValidEmail(email)) {
     return { ok: false, error: "Digite um e-mail válido." }
   }
@@ -26,7 +28,10 @@ export async function requestOtp(email: string): Promise<{ ok: true } | { ok: fa
   return { ok: true }
 }
 
-/** Simulate verify. Preview accepts PREVIEW_OTP only. */
+/**
+ * Simulate verify. Preview: any 6–8 digit code works.
+ * Production: auth.verifyEmailCode(email, token).
+ */
 export async function verifyOtp(
   email: string,
   code: string,
@@ -36,11 +41,11 @@ export async function verifyOtp(
   }
   await wait(350)
   const otp = normalizeOtp(code)
-  if (otp.length !== OTP_LENGTH) {
-    return { ok: false, error: `O código tem ${OTP_LENGTH} dígitos.` }
-  }
-  if (otp !== PREVIEW_OTP) {
-    return { ok: false, error: "Código incorreto. Tente de novo." }
+  if (otp.length < OTP_MIN || otp.length > OTP_MAX) {
+    return {
+      ok: false,
+      error: "Digite o código de 6 a 8 números enviado por e-mail.",
+    }
   }
   return { ok: true }
 }

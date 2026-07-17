@@ -851,194 +851,259 @@
   text-wrap: pretty;
 }
 
-/* —— Login (página própria /login) —— */
-.login-page {
+/* —— Login = padrão do blog online (login.html + styles.css) —— */
+.auth-body {
   min-height: 100dvh;
-  background: var(--paper);
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  background: linear-gradient(180deg, #fff 0 62%, #f4f5f2 100%);
+  color: var(--ink);
 }
 
-.login-layout {
-  flex: 1 1 auto;
-  width: min(calc(100% - 2rem), 26rem);
-  margin: 0 auto;
-  padding: 2.25rem 0 3rem;
+.auth-back {
+  position: fixed !important;
+  z-index: 20 !important;
+  top: 28px;
+  left: max(24px, calc(50% - 560px));
+  pointer-events: auto;
+}
+
+.auth-back a,
+.auth-back button {
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.auth-back a:hover,
+.auth-back button:hover {
+  color: var(--ink);
+}
+
+.auth-page {
+  min-height: 100dvh;
+  padding: 90px 20px;
   display: grid;
-  gap: 1.25rem;
-  align-content: start;
-  justify-items: center;
+  place-items: center;
 }
 
-.login-card {
-  width: 100%;
+.auth-card {
+  width: min(100%, 450px);
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
   background: #fff;
-  border: 2px dotted #d4d4d4;
-  border-radius: 21px;
-  padding: 1.5rem 1.35rem 1.35rem;
-  display: grid;
-  gap: 0.75rem;
+  box-shadow: 0 18px 50px rgba(23, 25, 23, 0.06);
   text-align: left;
 }
 
-.login-card h1 {
+.auth-logo {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.auth-card h1 {
   margin: 0;
-  font-size: clamp(1.65rem, 4vw, 2rem);
+  font-size: 36px;
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: #171717;
+  line-height: 1.15;
+  color: var(--ink);
   text-wrap: balance;
 }
 
-.login-lead {
-  margin: 0;
-  color: #525252;
+.auth-card > p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
   line-height: 1.5;
-  font-size: 0.95rem;
-  text-wrap: pretty;
 }
 
-.login-email-strong {
-  color: #171717;
-  font-weight: 600;
-  word-break: break-all;
-}
-
-.login-form {
+/* full-width dark pill CTA (blog .button) on login */
+.auth-card .button {
+  display: inline-flex;
+  min-height: 46px;
   width: 100%;
-  display: grid;
-  gap: 0.55rem;
-  margin-top: 0.35rem;
-}
-
-.login-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #525252;
-}
-
-.login-input {
-  width: 100%;
-  min-height: 2.75rem;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid #d4d4d4;
-  border-radius: 12px;
-  background: #fff;
-  font: inherit;
-  font-size: 1rem;
-  color: #171717;
-  transition: border-color var(--press-duration) var(--ease-out);
-}
-
-.login-input:hover:not(:disabled) {
-  border-color: #a3a3a3;
-}
-
-.login-input:focus {
-  outline: 2px solid #171717;
-  outline-offset: 2px;
-  border-color: #171717;
-}
-
-.login-input:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.login-input-otp {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0.35em;
-  text-align: center;
-  padding-inline: 0.75rem;
-}
-
-.login-form .btn {
-  width: 100%;
+  align-items: center;
   justify-content: center;
-  margin-top: 0.35rem;
-  min-height: 2.75rem;
+  gap: 10px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
 }
 
-.login-form .btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.auth-card .button:hover:not(:disabled) {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+.auth-card .button:disabled {
+  opacity: 0.65;
+  cursor: wait;
   transform: none;
 }
 
-.login-otp-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
-  margin-top: 0.15rem;
+.auth-submit {
+  width: 100%;
 }
 
-.login-text-btn {
-  appearance: none;
-  border: 0;
-  background: none;
-  padding: 0.25rem 0;
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #525252;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-  cursor: pointer;
-}
-
-.login-text-btn:hover:not(:disabled) {
-  color: #171717;
-}
-
-.login-text-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.login-error {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #b42318;
+.auth-status {
+  min-height: 20px;
+  margin: 12px 0 0;
+  color: var(--green-dark);
+  font-size: 13px;
   line-height: 1.4;
 }
 
-.login-info {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #14703c;
+.auth-status[data-error="true"] {
+  color: #a33232;
+}
+
+.login-terms {
+  margin-top: 20px !important;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 12px !important;
+  color: var(--muted);
   line-height: 1.45;
 }
 
-.login-hint {
-  margin: 0.15rem 0 0;
-  font-size: 0.78rem;
-  color: #737373;
-  line-height: 1.45;
+/* dotted floor atmosphere (blog .otp-auth) */
+.otp-auth {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
 
-.login-hint code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.85em;
+.otp-auth::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42vh;
+  background-image: radial-gradient(circle, #171917 1px, transparent 1.25px);
+  background-size: 7px 7px;
+  opacity: 0.34;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 48%,
+    #000 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0, #000 48%, #000 100%);
+}
+
+.otp-auth .auth-page,
+.otp-auth .auth-back {
+  position: relative;
+  z-index: 1;
+}
+
+.email-auth form {
+  margin-top: 24px;
+}
+
+.email-auth label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
   font-weight: 600;
-  color: #171717;
-  background: #f5f5f5;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  padding: 0.1rem 0.35rem;
+  color: var(--ink);
 }
 
-.login-back {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #525252;
+.email-auth input {
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  outline: none;
+  font: inherit;
+  color: var(--ink);
 }
 
-.login-back:hover {
-  color: #171717;
+.email-auth input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px var(--mint);
+}
+
+.email-auth .auth-submit {
+  margin-top: 12px;
+}
+
+.otp-input {
+  text-align: center;
+  font-size: 24px !important;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+}
+
+.code-help {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.code-help strong {
+  color: var(--ink);
+  word-break: break-all;
+}
+
+.otp-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 14px;
+}
+
+.otp-actions button {
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.otp-actions button:hover:not(:disabled) {
+  color: var(--ink);
+}
+
+.otp-actions button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+@media (max-width: 600px) {
+  .auth-back {
+    top: 18px;
+    left: 18px;
+  }
+
+  .auth-card {
+    padding: 22px;
+  }
+
+  .auth-card h1 {
+    font-size: 29px;
+  }
 }
 
 .cupom-actions .btn:disabled {

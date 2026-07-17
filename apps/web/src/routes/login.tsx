@@ -1,12 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router"
 import * as React from "react"
-import { SiteHeader } from "~/components/SiteHeader"
 import {
   isCompleteOtp,
   isValidEmail,
   normalizeOtp,
-  OTP_LENGTH,
-  PREVIEW_OTP,
+  OTP_MAX,
   requestOtp,
   verifyOtp,
 } from "~/utils/otp"
@@ -16,17 +14,17 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
   head: () => ({
     meta: [
-      { title: "Entrar — dino.blog" },
+      { title: "Participar — Dino Blog" },
       {
         name: "description",
-        content:
-          "Entre no Clube dos Curiosos com código por e-mail. Desbloqueie cupons e benefícios.",
+        content: "Entre no Clube dos Curiosos.",
       },
+      { name: "robots", content: "noindex,nofollow" },
     ],
   }),
 })
 
-type Step = "email" | "otp"
+type Step = "email" | "code"
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -34,12 +32,14 @@ function LoginPage() {
 
   const [step, setStep] = React.useState<Step>("email")
   const [email, setEmail] = React.useState("")
-  const [otp, setOtp] = React.useState("")
+  const [code, setCode] = React.useState("")
   const [busy, setBusy] = React.useState(false)
-  const [error, setError] = React.useState<string | null>(null)
-  const [info, setInfo] = React.useState<string | null>(null)
+  const [resendBusy, setResendBusy] = React.useState(false)
+  const [status, setStatus] = React.useState("")
+  const [statusError, setStatusError] = React.useState(false)
 
-  const otpRef = React.useRef<HTMLInputElement>(null)
+  const codeRef = React.useRef<HTMLInputElement>(null)
+  const emailRef = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
     if (ready && isLoggedIn) {
@@ -48,49 +48,56 @@ function LoginPage() {
   }, [ready, isLoggedIn, navigate])
 
   React.useEffect(() => {
-    if (step === "otp") {
-      otpRef.current?.focus()
+    if (step === "code") {
+      codeRef.current?.focus()
     }
   }, [step])
 
+  function message(text: string, error = false) {
+    setStatus(text)
+    setStatusError(error)
+  }
+
   async function handleSendCode(e: React.FormEvent) {
     e.preventDefault()
-    setError(null)
-    setInfo(null)
-
     const clean = email.trim().toLowerCase()
     if (!isValidEmail(clean)) {
-      setError("Digite um e-mail válido.")
+      message("Digite um e-mail válido.", true)
+      emailRef.current?.focus()
       return
     }
 
     setBusy(true)
+    message("")
     const result = await requestOtp(clean)
     setBusy(false)
 
     if (!result.ok) {
-      setError(result.error)
+      message(result.error, true)
       return
     }
 
     setEmail(clean)
-    setOtp("")
-    setStep("otp")
-    setInfo(
-      `Preview: use o código ${PREVIEW_OTP} (depois o e-mail real leva o OTP).`,
-    )
+    setCode("")
+    setStep("code")
+    message("Código enviado. Confira também a caixa de spam.")
   }
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault()
-    setError(null)
+    const token = normalizeOtp(code)
+    if (!isCompleteOtp(token)) {
+      message("Digite o código de 6 a 8 números enviado por e-mail.", true)
+      codeRef.current?.focus()
+      return
+    }
 
     setBusy(true)
-    const result = await verifyOtp(email, otp)
-    setBusy(false)
-
+    message("")
+    const result = await verifyOtp(email, token)
     if (!result.ok) {
-      setError(result.error)
+      setBusy(false)
+      message(result.error, true)
       return
     }
 
@@ -99,161 +106,127 @@ function LoginPage() {
   }
 
   async function handleResend() {
-    setError(null)
-    setBusy(true)
+    setResendBusy(true)
+    message("Reenviando…")
     const result = await requestOtp(email)
-    setBusy(false)
     if (!result.ok) {
-      setError(result.error)
-      return
+      message(result.error, true)
+    } else {
+      message("Novo código enviado.")
     }
-    setInfo(`Código reenviado (preview). Continua sendo ${PREVIEW_OTP}.`)
-    setOtp("")
-    otpRef.current?.focus()
+    window.setTimeout(() => setResendBusy(false), 60000)
   }
 
   function handleChangeEmail() {
     setStep("email")
-    setOtp("")
-    setError(null)
-    setInfo(null)
-  }
-
-  function onOtpChange(value: string) {
-    setOtp(normalizeOtp(value))
-    setError(null)
+    setCode("")
+    message("")
+    window.setTimeout(() => emailRef.current?.focus(), 0)
   }
 
   return (
-    <div className="login-page">
-      <SiteHeader current="login" />
+    <div className="auth-body otp-auth">
+      <div className="auth-back">
+        <Link to="/">← voltar</Link>
+      </div>
 
-      <main id="conteudo" className="login-layout">
-        <section className="login-card" aria-labelledby="login-title">
-          <span className="detail-eyebrow">Clube dos Curiosos</span>
-          <h1 id="login-title">
-            {step === "email" ? "Entrar" : "Código de acesso"}
-          </h1>
-          <p className="login-lead">
-            {step === "email"
-              ? "Receba um código de 6 dígitos no e-mail. Sem senha."
-              : (
-                  <>
-                    Enviamos o código para{" "}
-                    <strong className="login-email-strong">{email}</strong>.
-                  </>
-                )}
-          </p>
+      <main id="conteudo" className="auth-page">
+        <section className="auth-card email-auth" aria-labelledby="auth-title">
+          <img
+            src="/assets/favicon-dino-180.png"
+            alt=""
+            className="auth-logo"
+            width={50}
+            height={50}
+          />
+          <h1 id="auth-title">Entrar no dino.blog</h1>
+          <p>Use seu e-mail para receber um código de acesso. Sem senha.</p>
 
           {step === "email" ? (
-            <form className="login-form" onSubmit={handleSendCode} noValidate>
-              <label className="login-label" htmlFor="login-email">
-                E-mail
-              </label>
+            <form id="email-form" onSubmit={handleSendCode} noValidate>
+              <label htmlFor="login-email">Seu e-mail</label>
               <input
+                ref={emailRef}
                 id="login-email"
-                className="login-input"
                 type="email"
-                name="email"
                 autoComplete="email"
-                inputMode="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                  setError(null)
-                }}
                 placeholder="voce@email.com"
-                disabled={busy}
                 required
-                aria-invalid={error ? true : undefined}
-                aria-describedby={error ? "login-error" : undefined}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={busy}
               />
               <button
+                className="button auth-submit"
                 type="submit"
-                className="btn btn-primary"
-                disabled={busy || !email.trim()}
+                disabled={busy}
+                data-label="Receber código →"
               >
-                {busy ? "enviando…" : "enviar código →"}
+                {busy ? "Enviando código…" : "Receber código →"}
               </button>
             </form>
           ) : (
-            <form className="login-form" onSubmit={handleVerify} noValidate>
-              <label className="login-label" htmlFor="login-otp">
-                Código de {OTP_LENGTH} dígitos
-              </label>
+            <form id="code-form" onSubmit={handleVerify} noValidate>
+              <p className="code-help">
+                Enviamos um código para <strong>{email}</strong>.
+              </p>
+              <label htmlFor="login-code">Código de acesso</label>
               <input
-                ref={otpRef}
-                id="login-otp"
-                className="login-input login-input-otp"
-                type="text"
-                name="otp"
+                ref={codeRef}
+                id="login-code"
+                className="otp-input"
                 inputMode="numeric"
                 autoComplete="one-time-code"
-                pattern={`[0-9]{${OTP_LENGTH}}`}
-                maxLength={OTP_LENGTH}
-                value={otp}
-                onChange={(e) => onOtpChange(e.target.value)}
-                placeholder="••••••"
-                disabled={busy}
+                maxLength={OTP_MAX}
+                pattern={`[0-9]{6,${OTP_MAX}}`}
+                placeholder="000000"
                 required
-                aria-invalid={error ? true : undefined}
-                aria-describedby={
-                  error
-                    ? "login-error"
-                    : info
-                      ? "login-info"
-                      : undefined
-                }
+                value={code}
+                onChange={(e) => setCode(normalizeOtp(e.target.value))}
+                disabled={busy}
               />
               <button
+                className="button auth-submit"
                 type="submit"
-                className="btn btn-primary"
-                disabled={busy || !isCompleteOtp(otp)}
+                disabled={busy}
+                data-label="Entrar →"
               >
-                {busy ? "verificando…" : "entrar no clube →"}
+                {busy ? "Verificando…" : "Entrar →"}
               </button>
-
-              <div className="login-otp-actions">
+              <div className="otp-actions">
                 <button
                   type="button"
-                  className="login-text-btn"
-                  onClick={handleResend}
-                  disabled={busy}
-                >
-                  reenviar código
-                </button>
-                <button
-                  type="button"
-                  className="login-text-btn"
                   onClick={handleChangeEmail}
                   disabled={busy}
                 >
-                  trocar e-mail
+                  Trocar e-mail
+                </button>
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  disabled={busy || resendBusy}
+                >
+                  Reenviar código
                 </button>
               </div>
             </form>
           )}
 
-          {error ? (
-            <p id="login-error" className="login-error" role="alert">
-              {error}
-            </p>
-          ) : null}
-          {info && !error ? (
-            <p id="login-info" className="login-info" role="status">
-              {info}
-            </p>
-          ) : null}
+          <p
+            className="auth-status"
+            id="auth-status"
+            role="status"
+            aria-live="polite"
+            data-error={statusError ? "true" : "false"}
+          >
+            {status}
+          </p>
 
-          <p className="login-hint">
-            Stub de preview — o OTP real chega por e-mail na Fase 2 (Supabase).
-            Código de teste: <code>{PREVIEW_OTP}</code>
+          <p className="login-terms">
+            Ao continuar, você concorda em participar com curiosidade e
+            respeito.
           </p>
         </section>
-
-        <Link to="/" className="login-back">
-          ← voltar à home
-        </Link>
       </main>
     </div>
   )
