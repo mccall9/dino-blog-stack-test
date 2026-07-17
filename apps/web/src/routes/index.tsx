@@ -11,11 +11,8 @@ function ClubHome() {
       <SiteHeader current="home" />
 
       <main id="conteudo" className="club-shell">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="stack-badge">stack test · not production</span>
-          <span className="text-xs text-[var(--muted)]">
-            DM Sans · tokens do site online
-          </span>
+        <div>
+          <span className="stack-badge">stack test · preview</span>
         </div>
 
         <section className="club-hero" aria-labelledby="club-hero-title">
@@ -31,16 +28,25 @@ function ClubHome() {
               ainda está em construção — agora.
             </p>
             <ul className="club-hero-points" aria-label="O que acontece aqui">
-              <li>Ideias e projetos em andamento</li>
-              <li>Perguntas sem pose de especialista</li>
-              <li>Conversas reais, não catálogo de clubes</li>
+              <li>
+                <span aria-hidden="true">1</span>
+                Ideias e projetos em andamento
+              </li>
+              <li>
+                <span aria-hidden="true">2</span>
+                Perguntas sem pose de especialista
+              </li>
+              <li>
+                <span aria-hidden="true">3</span>
+                Conversas reais, não catálogo de clubes
+              </li>
             </ul>
             <div className="club-hero-actions">
               <Link to="/login" className="btn btn-primary">
                 Entrar para participar
               </Link>
               <Link to="/about" className="btn btn-secondary">
-                A história do clube
+                Conhecer o clube
               </Link>
             </div>
           </div>
@@ -54,70 +60,51 @@ function ClubHome() {
           </figure>
         </section>
 
-        <section aria-labelledby="club-live-title">
-          <div className="club-section-head">
-            <div>
-              <span className="eyebrow">Acontecendo agora</span>
-              <h2 id="club-live-title">Conversas recentes</h2>
-              <p>
-                Prova de vida do clube — prévia pública do que a gente está
-                pensando e construindo.
-              </p>
+        <section className="bento" aria-label="O que vem a seguir neste preview">
+          <article className="panel">
+            <div className="panel-head">
+              <span className="eyebrow">Acontecendo</span>
+              <h2>Conversas recentes</h2>
             </div>
-            <Link to="/login" className="text-link shrink-0">
-              Entrar para participar →
-            </Link>
-          </div>
-          <div className="club-card club-card-muted" role="status">
-            <p className="m-0">
-              <strong className="text-[var(--ink)]">Stack test</strong> — feed
-              live (Supabase) nas próximas fases. Produção em manutenção:{" "}
-              <a className="text-link" href="https://dinoclub.blog">
-                dinoclub.blog
-              </a>
-              .
+            <p>
+              Aqui entram as prévias públicas do feed. No stack-test ainda é
+              placeholder — a lógica Supabase chega com o agent{" "}
+              <strong className="text-[var(--ink)]">supabase-guard</strong> e o
+              shell do{" "}
+              <strong className="text-[var(--ink)]">product-shell</strong>.
             </p>
-          </div>
-        </section>
-
-        <section aria-labelledby="featured-club-title">
-          <div className="club-section-head">
-            <div>
-              <span className="eyebrow">Um só espaço</span>
-              <h2 id="featured-club-title">A história do clube</h2>
-              <p>
-                Entre para ler e participar das conversas. Aqui fica o contexto
-                — quem somos e como convivemos.
-              </p>
-            </div>
-          </div>
-          <article className="club-card">
-            <h3 className="mt-0 mb-2 text-xl font-semibold text-balance">
-              Clube dos Curiosos
-            </h3>
-            <p className="m-0 text-[var(--muted)] leading-relaxed text-pretty">
-              Um espaço para curiosidade sem performance. Este monorepo valida a
-              stack Bun · Elysia · TanStack Start · Tailwind — com a mesma
-              identidade visual do site online.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link to="/login" className="btn btn-primary">
-                Entrar para participar
+            <p className="mt-4">
+              <Link to="/login" className="text-link">
+                Entrar para participar →
               </Link>
+            </p>
+          </article>
+
+          <article className="panel panel-soft">
+            <div className="panel-head">
+              <span className="eyebrow">Um só espaço</span>
+              <h2>Clube dos Curiosos</h2>
+            </div>
+            <p>
+              Um lugar para curiosidade sem performance. Este preview valida a
+              stack nova com agents e skills — design pode evoluir.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
               <Link to="/about" className="btn btn-secondary">
                 Sobre
+              </Link>
+              <Link to="/ideias" className="btn btn-secondary">
+                Ideias
               </Link>
             </div>
           </article>
         </section>
 
-        <footer className="border-t border-[var(--line)] pt-6 text-sm text-[var(--muted)]">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <span>dino-blog-stack-test · experimental</span>
-            <span className="text-xs">
-              skills: baseline-ui · a11y · emil-design-eng
-            </span>
-          </div>
+        <footer className="site-footer">
+          <span>dino-blog-stack-test</span>
+          <span>
+            agents: home-designer · product-shell · content-builder · …
+          </span>
         </footer>
       </main>
     </div>

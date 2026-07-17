@@ -1,10 +1,7 @@
 @import "tailwindcss" source("../");
 @import "./tokens.css";
 
-/**
- * Product UI — brand locked (DESIGN.md).
- * Skills applied: baseline-ui, emil-design-eng, fixing-accessibility.
- */
+/* Freer club shell — skills: baseline-ui, emil, a11y. Evolution OK. */
 
 @layer base {
   html {
@@ -19,7 +16,6 @@
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
   }
@@ -30,7 +26,6 @@
     color: var(--ink);
     background: var(--paper);
     font-family: var(--font-sans);
-    font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -62,7 +57,7 @@
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-    border-width: 0;
+    border: 0;
   }
 
   .sr-only:focus {
@@ -74,35 +69,32 @@
     height: auto;
     margin: 0;
     clip: auto;
-    padding: 12px 18px;
+    padding: 12px 16px;
     border-radius: 12px;
     background: var(--ink);
     color: #fff;
     font-weight: 600;
-    white-space: normal;
   }
 }
 
-/* Buttons — brand green + emil press */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.4rem;
   min-height: 48px;
+  padding: 0.75rem 1.35rem;
   border-radius: 999px;
-  padding: 0.75rem 1.2rem;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.2;
   border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
   transition:
+    transform var(--press-duration) var(--ease-out),
     background var(--press-duration) var(--ease-out),
     border-color var(--press-duration) var(--ease-out),
-    transform var(--press-duration) var(--ease-out),
-    color var(--press-duration) var(--ease-out);
+    box-shadow var(--press-duration) var(--ease-out);
 }
 
 .btn:active {
@@ -112,6 +104,7 @@
 .btn-primary {
   background: var(--green);
   color: #fff;
+  box-shadow: 0 8px 24px rgba(31, 154, 82, 0.22);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -121,9 +114,9 @@
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--ink);
+  background: var(--paper);
   border-color: var(--line);
+  color: var(--ink);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -134,71 +127,62 @@
 }
 
 .eyebrow {
-  display: inline-block;
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--green-dark);
 }
 
-/* Atmosphere matches production club home (mint/soft only) */
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
 .club-page {
   min-height: 100dvh;
   background:
-    radial-gradient(
-      ellipse 65% 40% at 92% 6%,
-      rgba(223, 243, 229, 0.95),
-      transparent 58%
-    ),
-    radial-gradient(
-      ellipse 45% 30% at 4% 18%,
-      rgba(242, 243, 240, 0.9),
-      transparent 52%
-    ),
+    radial-gradient(900px 420px at 100% -10%, var(--mint), transparent 60%),
+    radial-gradient(700px 360px at -5% 20%, var(--cream), transparent 55%),
     var(--paper);
-}
-
-.club-shell {
-  width: min(calc(100% - 2.5rem), var(--max));
-  margin-inline: auto;
-  display: grid;
-  gap: 5rem;
-  padding-block: 2.5rem 4rem;
 }
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper) 92%, transparent);
-  backdrop-filter: blur(8px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
 }
 
 .site-nav {
   width: min(calc(100% - 2rem), var(--max));
   margin-inline: auto;
+  min-height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 64px;
-  padding-block: 0.65rem;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1.05rem;
+  gap: 0.55rem;
   font-weight: 600;
-  color: var(--ink);
+  font-size: 1.05rem;
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   object-fit: contain;
 }
 
@@ -207,7 +191,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.35rem 1rem;
+  gap: 0.25rem 1.1rem;
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -216,8 +200,6 @@
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  padding-inline: 2px;
-  color: var(--ink);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -227,166 +209,185 @@
 }
 
 .nav-links a[aria-current="page"]:not(.btn) {
-  text-decoration: underline;
-  text-decoration-color: var(--green);
-  text-underline-offset: 4px;
   font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--green);
+  text-underline-offset: 0.35em;
+}
+
+.club-shell {
+  width: min(calc(100% - 2rem), var(--max));
+  margin-inline: auto;
+  display: grid;
+  gap: 4.5rem;
+  padding: 2rem 0 4.5rem;
+}
+
+.stack-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .club-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  gap: 2.5rem 3.25rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 2.75rem 3rem;
   align-items: center;
+  padding: 1rem 0 0.5rem;
 }
 
 .club-hero h1 {
-  margin: 0.85rem 0 1rem;
-  font-size: clamp(2.25rem, 5.2vw, 3.75rem);
-  line-height: 1.03;
-  letter-spacing: -0.045em;
+  margin: 0.75rem 0 1rem;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.02;
   font-weight: 600;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
 .club-hero-lede {
-  margin: 0 0 1.1rem;
-  max-width: 34rem;
-  color: #4f554f;
-  font-size: 1.05rem;
-  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  max-width: 32rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.55;
   text-wrap: pretty;
 }
 
 .club-hero-points {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.75rem;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.5rem;
+  gap: 0.65rem;
 }
 
 .club-hero-points li {
-  position: relative;
-  padding-left: 1.15rem;
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   line-height: 1.45;
   text-wrap: pretty;
 }
 
-.club-hero-points li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--green);
+.club-hero-points li span {
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--green-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
 }
 
 .club-hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  align-items: center;
 }
 
 .club-hero-art {
   margin: 0;
-  position: relative;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--line);
-  background: linear-gradient(160deg, #e8f7ed 0%, #f7f8f5 55%, #fff 100%);
-  box-shadow: 0 22px 56px rgba(23, 25, 23, 0.07);
+  background: var(--soft);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 28px 60px rgba(23, 25, 23, 0.08);
+  transform: rotate(-0.6deg);
 }
 
 .club-hero-art img {
   width: 100%;
-  height: auto;
   aspect-ratio: 5 / 4;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center 38%;
 }
 
-.club-section-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-bottom: 1.25rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--line);
+.bento {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1rem;
 }
 
-.club-section-head h2 {
-  margin: 0.5rem 0;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  letter-spacing: -0.03em;
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  padding: 1.35rem 1.4rem;
+}
+
+.panel-soft {
+  background: var(--soft);
+}
+
+.panel h2,
+.panel h3 {
+  margin: 0.4rem 0 0.55rem;
+  font-size: 1.35rem;
   font-weight: 600;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
-.club-section-head p {
+.panel p {
   margin: 0;
-  max-width: 36rem;
   color: var(--muted);
-  font-size: 0.95rem;
   line-height: 1.55;
+  font-size: 0.98rem;
   text-wrap: pretty;
 }
 
-.club-card {
-  border: 1px solid var(--line);
-  border-radius: 1.5rem;
-  background: var(--paper);
-  padding: 1.5rem;
-}
-
-.club-card-muted {
-  background: var(--soft);
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-
-.stack-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  border-radius: 999px;
-  background: var(--mint);
-  color: var(--green-dark);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.7rem;
+.panel-head {
+  margin-bottom: 0.85rem;
 }
 
 .text-link {
-  font-size: 0.9rem;
   font-weight: 600;
   color: var(--green-dark);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-@media (max-width: 860px) {
-  .club-hero {
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 880px) {
+  .club-hero,
+  .bento {
     grid-template-columns: 1fr;
   }
 
-  .club-section-head {
-    flex-direction: column;
-    align-items: flex-start;
+  .club-hero-art {
+    transform: none;
+    order: -1;
   }
 
   .club-hero-actions .btn {
     width: 100%;
-    justify-content: center;
   }
 }

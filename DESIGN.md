@@ -1,47 +1,48 @@
-# Design system lock — dino-blog-stack-test
+# Design — dino-blog-stack-test
 
-**Identity source of truth:** production [dinoclub.blog](https://dinoclub.blog) / `build in public/styles.css`  
-**This repo only re-implements** that look on the new stack. No Arvo, no purple, no new accent.
+## Postura
 
-## Brand (must not drift)
+Este é um **stack test**.  
+Podemos **evoluir** layout, tipografia de destaque, densidade e hierarquia.
 
-| Token | Value | Use |
-|-------|--------|-----|
-| Font | **DM Sans** 400/500/600 | Body + UI |
-| Accent quote | **Nunito** 400 | Only if quotes appear |
-| `--ink` | `#171917` | Text |
-| `--muted` | `#6f746f` | Secondary text |
-| `--paper` | `#ffffff` | Page bg |
-| `--soft` | `#f2f3f0` | Soft surfaces |
-| `--line` | `#dedfda` | Borders |
-| `--green` | `#229b55` | Primary CTA only |
-| `--green-dark` | `#176f3d` | Hover / eyebrows |
-| `--mint` | `#dff3e5` | Soft green wash |
-| `--radius` | `30px` | Large shells |
-| `--max` | `1120–1180px` | Content width |
+- Referência de marca: clube dino.blog (verde, tom editorial, pt-BR)  
+- **Não** exige pixel-parity com dinoclub.blog  
+- Produção online pode estar em manutenção — o preview é o laboratório  
 
-### Rules
-1. **One accent** per view: green CTA only (baseline-ui + marclou).
-2. **No new fonts** on product surfaces.
-3. **No purple / multicolor gradients** (baseline-ui).
-4. Hero atmosphere washes may match production (mint/soft radial only).
+## Tokens base (ponto de partida, não prisão)
 
-## Skills to use on this UI (`/skills`)
+Definidos em `apps/web/src/styles/tokens.css` — podem ser estendidos se o redesign pedir.
 
-| Skill | When |
+| Token | Default |
+|-------|---------|
+| Font | DM Sans (pode combinar com display se fizer sentido) |
+| Ink / muted / paper / soft / line | paleta clube |
+| Green / green-dark / mint | accent principal |
+
+## Skills (`.grok/skills/`)
+
+| Skill | Uso |
+|-------|-----|
+| baseline-ui | deslop, spacing, hierarchy |
+| emil-design-eng | press, ease-out, polish |
+| fixing-accessibility | focus, alvos, a11y |
+| marclou-review | hero + CTA |
+| improve-ui | handoff de plano se redesign grande |
+| ui-skills-root | escolher skill mínima |
+
+## Agents (`.grok/agents/`)
+
+| Agent | Zona |
 |-------|------|
-| **baseline-ui** | Spacing, hierarchy, typography, deslop |
-| **emil-design-eng** | Press states, ease-out, duration ≤200ms feedback |
-| **fixing-accessibility** | Focus, names, contrast, keyboard |
-| **fixing-metadata** | titles, OG, noindex on preview |
-| **marclou-review** | Hero clarity, one CTA priority |
-| **home-designer** agent | Visual home / club sections |
-| **product-shell** agent | Nav + CTAs |
+| **home-designer** | `/` visual e seções |
+| **product-shell** | nav, rotas, CTAs, vercel |
+| **content-builder** | copy pt-BR |
+| **feed-designer** | `/feed` quando existir |
+| **supabase-guard** | auth/data Fase 2+ |
+| **ship-check** | build + checklist |
 
-Prefer **1–2 skills** per pass (ui-skills-root).
+## Anti-padrões
 
-## Implementation map
-
-- Tokens: `apps/web/src/styles/tokens.css`
-- Global + club: `apps/web/src/styles/app.css`
-- Shell: `apps/web/src/components/SiteHeader.tsx`
+- Misturar UI com `dino-platform` (agents console)  
+- Deploy acidental como se fosse produção do clube  
+- Feature dump sem uma CTA clara  

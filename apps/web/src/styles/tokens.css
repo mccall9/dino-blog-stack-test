@@ -1,23 +1,23 @@
 /**
- * Brand tokens — locked to production dino.blog (styles.css :root).
- * Do not invent colors or fonts here.
+ * Brand starting point for stack-test.
+ * Evolution allowed — document new tokens in DESIGN.md when you add them.
  */
 :root {
   --ink: #171917;
-  --muted: #6f746f;
-  --paper: #ffffff;
-  --soft: #f2f3f0;
-  --line: #dedfda;
-  --green: #229b55;
-  --green-dark: #176f3d;
-  --mint: #dff3e5;
-  --radius: 30px;
-  --max: 1120px;
+  --muted: #5c615c;
+  --paper: #fbfcf9;
+  --soft: #eef0eb;
+  --line: #d8dad4;
+  --green: #1f9a52;
+  --green-dark: #14703c;
+  --mint: #d8f0e0;
+  --cream: #f3f6ef;
+  --radius: 1.25rem;
+  --radius-lg: 1.75rem;
+  --max: 1100px;
   --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-quote: "Nunito", "DM Sans", sans-serif;
-  /* emil-design-eng: crisp UI feedback */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --press-duration: 160ms;
-  --z-header: 20;
+  --press-duration: 150ms;
+  --z-header: 30;
   --z-skip: 50;
 }
