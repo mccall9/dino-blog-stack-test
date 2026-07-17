@@ -29,11 +29,22 @@ const TOPICS = [
 function ClubHome() {
   const [query, setQuery] = React.useState("")
 
+  React.useEffect(() => {
+    const prevHtml = document.documentElement.style.overflow
+    const prevBody = document.body.style.overflow
+    document.documentElement.style.overflow = "hidden"
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.documentElement.style.overflow = prevHtml
+      document.body.style.overflow = prevBody
+    }
+  }, [])
+
   return (
-    <div>
+    <div className="page-lock">
       <SiteHeader current="home" />
 
-      <main id="conteudo">
+      <div className="home-body" id="conteudo">
         <section className="discover" aria-labelledby="hero-title">
           <span className="stack-pill">stack test · preview</span>
 
@@ -48,7 +59,6 @@ function ClubHome() {
             <Link to="/about">como funciona</Link>
           </p>
 
-          {/* biip: search between copy and primary action */}
           <form
             className="search-wrap"
             role="search"
@@ -71,12 +81,6 @@ function ClubHome() {
             />
           </form>
 
-          <div className="discover-cta">
-            <Link to="/login" className="btn btn-accent">
-              Entrar para participar
-            </Link>
-          </div>
-
           <div className="chips" role="list" aria-label="Temas no clube">
             {TOPICS.map((t) => (
               <span
@@ -91,7 +95,6 @@ function ClubHome() {
           </div>
         </section>
 
-        {/* Card left like biip, single club */}
         <section className="product-stage" aria-label="O clube">
           <Link to="/login" className="club-card">
             <div className="club-card-cover">
@@ -99,7 +102,7 @@ function ClubHome() {
                 src="/assets/dino-blog-hero.png"
                 alt=""
                 width={640}
-                height={400}
+                height={360}
               />
             </div>
             <div className="club-card-body">
@@ -108,8 +111,8 @@ function ClubHome() {
                   className="club-card-avatar"
                   src="/assets/favicon-dino-180.png"
                   alt=""
-                  width={28}
-                  height={28}
+                  width={24}
+                  height={24}
                 />
                 <span className="club-card-name">Clube dos Curiosos</span>
               </div>
@@ -124,22 +127,7 @@ function ClubHome() {
             </div>
           </Link>
         </section>
-
-        <section className="below" aria-labelledby="why-title">
-          <div>
-            <h2 id="why-title">Por que não é um diretório de comunidades</h2>
-            <p>
-              Um só espaço. Menos ruído, mais companhia. Você entra, lê o que
-              está vivo e participa — em vez de escolher entre 50 clubs vazios.
-            </p>
-          </div>
-        </section>
-
-        <footer className="site-footer">
-          <span>dino.blog · stack test</span>
-          <span>marclou · revenue · ui craft</span>
-        </footer>
-      </main>
+      </div>
     </div>
   )
 }

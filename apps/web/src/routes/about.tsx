@@ -7,15 +7,15 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <div style={{ minHeight: "100dvh", background: "var(--paper)" }}>
+    <div className="page-simple">
       <SiteHeader current="about" />
-      <main id="conteudo" className="discover" style={{ paddingTop: "2.5rem" }}>
-        <h1 style={{ maxWidth: "18ch" }}>Clube dos Curiosos</h1>
-        <p className="discover-sub">
+      <main id="conteudo">
+        <h1>Clube dos Curiosos</h1>
+        <p>
           Pessoas pensando em voz alta, sem marketplace de comunidades. Um só
           espaço — curiosidade com companhia.
         </p>
-        <Link to="/" className="btn btn-ghost">
+        <Link to="/" className="btn btn-primary">
           ← Home
         </Link>
       </main>

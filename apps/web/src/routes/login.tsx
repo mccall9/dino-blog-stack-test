@@ -7,15 +7,15 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   return (
-    <div style={{ minHeight: "100dvh", background: "var(--paper)" }}>
+    <div className="page-simple">
       <SiteHeader current="login" />
-      <main id="conteudo" className="discover" style={{ paddingTop: "2.5rem" }}>
+      <main id="conteudo">
         <h1>Entrar no clube</h1>
-        <p className="discover-sub">
-          OTP por e-mail (6–8 dígitos) na Fase 2. Por enquanto este botão é o
-          placeholder do fluxo.
+        <p>
+          OTP por e-mail (6–8 dígitos) na Fase 2. Por enquanto use o botão da
+          barra: <strong>entrar →</strong>
         </p>
-        <Link to="/" className="btn btn-accent">
+        <Link to="/" className="btn btn-primary">
           Voltar à home
         </Link>
       </main>

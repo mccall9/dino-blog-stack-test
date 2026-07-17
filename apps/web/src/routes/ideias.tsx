@@ -7,15 +7,15 @@ export const Route = createFileRoute("/ideias")({
 
 function IdeiasPage() {
   return (
-    <div style={{ minHeight: "100dvh", background: "var(--paper)" }}>
+    <div className="page-simple">
       <SiteHeader current="ideias" />
-      <main id="conteudo" className="discover" style={{ paddingTop: "2.5rem" }}>
+      <main id="conteudo">
         <h1>Ideias</h1>
-        <p className="discover-sub">
+        <p>
           Reserva editorial do dino.blog. Stub no stack-test — conteúdo completo
           na próxima fase.
         </p>
-        <Link to="/" className="btn btn-ghost">
+        <Link to="/" className="btn btn-primary">
           ← Home
         </Link>
       </main>
