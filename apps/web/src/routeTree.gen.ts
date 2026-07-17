@@ -2,8 +2,8 @@
 // @ts-nocheck
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as IdeiasRouteImport } from './routes/ideias'
 import { Route as CuponsRouteImport } from './routes/cupons'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CommunityClubeDosCuriososRouteImport } from './routes/community.clube-dos-curiosos'
 
@@ -12,14 +12,14 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IdeiasRoute = IdeiasRouteImport.update({
-  id: '/ideias',
-  path: '/ideias',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CuponsRoute = CuponsRouteImport.update({
   id: '/cupons',
   path: '/cupons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -36,23 +36,23 @@ const CommunityClubeDosCuriososRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/cupons': typeof CuponsRoute
-  '/ideias': typeof IdeiasRoute
   '/login': typeof LoginRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/cupons': typeof CuponsRoute
-  '/ideias': typeof IdeiasRoute
   '/login': typeof LoginRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/cupons': typeof CuponsRoute
-  '/ideias': typeof IdeiasRoute
   '/login': typeof LoginRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
 }
@@ -60,30 +60,30 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/cupons'
-    | '/ideias'
     | '/login'
     | '/community/clube-dos-curiosos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/cupons'
-    | '/ideias'
     | '/login'
     | '/community/clube-dos-curiosos'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/cupons'
-    | '/ideias'
     | '/login'
     | '/community/clube-dos-curiosos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CuponsRoute: typeof CuponsRoute
-  IdeiasRoute: typeof IdeiasRoute
   LoginRoute: typeof LoginRoute
   CommunityClubeDosCuriososRoute: typeof CommunityClubeDosCuriososRoute
 }
@@ -97,18 +97,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cupons': {
       id: '/cupons'
       path: '/cupons'
       fullPath: '/cupons'
       preLoaderRoute: typeof CuponsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ideias': {
-      id: '/ideias'
-      path: '/ideias'
-      fullPath: '/ideias'
-      preLoaderRoute: typeof IdeiasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -130,8 +130,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute,
+  AboutRoute,
   CuponsRoute,
-  IdeiasRoute,
   LoginRoute,
   CommunityClubeDosCuriososRoute,
 }
