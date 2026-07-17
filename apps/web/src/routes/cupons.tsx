@@ -54,6 +54,33 @@ const COUPONS: Coupon[] = [
     expires: "em breve",
     status: "em breve",
   },
+  {
+    id: "4",
+    title: "Hosting e deploys",
+    partner: "Parceiro exemplo",
+    code: "DINOSTACK",
+    benefit: "Créditos extras no primeiro deploy",
+    expires: "45 dias",
+    status: "ativo",
+  },
+  {
+    id: "5",
+    title: "Design systems",
+    partner: "Parceiro exemplo",
+    code: "CURIOSOUI",
+    benefit: "Kit de componentes + templates",
+    expires: "20 dias",
+    status: "ativo",
+  },
+  {
+    id: "6",
+    title: "Mentoria em grupo",
+    partner: "Clube dos Curiosos",
+    code: "—",
+    benefit: "Sessão mensal para membros",
+    expires: "em breve",
+    status: "em breve",
+  },
 ]
 
 function CuponsPage() {
