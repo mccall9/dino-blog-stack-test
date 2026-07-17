@@ -850,3 +850,54 @@
   line-height: 1.5;
   text-wrap: pretty;
 }
+
+/* —— Login (página própria) —— */
+.login-shell {
+  max-width: 24rem;
+}
+
+.login-form {
+  width: 100%;
+  display: grid;
+  gap: 0.65rem;
+  justify-items: stretch;
+  text-align: left;
+  margin: 0.5rem 0;
+}
+
+.login-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #525252;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  color: #171717;
+}
+
+.login-input:focus {
+  outline: 2px solid #171717;
+  outline-offset: 2px;
+}
+
+.login-form .btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+.login-hint {
+  font-size: 0.8rem !important;
+  color: #737373 !important;
+}
+
+.cupom-actions .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

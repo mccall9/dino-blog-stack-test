@@ -34,8 +34,8 @@ function AboutPage() {
           <Link to="/community/clube-dos-curiosos" className="btn btn-primary">
             ver o clube
           </Link>
-          <Link to="/cupons" className="btn btn-ghost">
-            cupons
+          <Link to="/login" className="btn btn-ghost">
+            entrar →
           </Link>
         </div>
       </main>

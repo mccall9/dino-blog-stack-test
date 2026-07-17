@@ -1,10 +1,19 @@
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
+import { logoutSession, useSession } from "~/utils/session"
 
 type Props = {
   current?: "home" | "cupons" | "about" | "login"
 }
 
 export function SiteHeader({ current = "home" }: Props) {
+  const { isLoggedIn, ready } = useSession()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logoutSession()
+    void navigate({ to: "/" })
+  }
+
   return (
     <header className="site-header">
       <nav className="site-nav" aria-label="Navegação principal">
@@ -25,21 +34,40 @@ export function SiteHeader({ current = "home" }: Props) {
         </Link>
 
         <div className="nav-links">
-          <Link
-            to="/cupons"
-            aria-current={current === "cupons" ? "page" : undefined}
-          >
-            Cupons
-          </Link>
-          <Link
-            to="/about"
-            aria-current={current === "about" ? "page" : undefined}
-          >
-            Sobre
-          </Link>
-          <Link to="/login" className="btn btn-primary">
-            entrar →
-          </Link>
+          {/*
+            Antes do login: Sobre + entrar
+            Depois do login: Cupons + sair  (Sobre some)
+            Cada destino continua em rota/página própria.
+          */}
+          {ready && isLoggedIn ? (
+            <>
+              <Link
+                to="/cupons"
+                aria-current={current === "cupons" ? "page" : undefined}
+              >
+                Cupons
+              </Link>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={handleLogout}
+              >
+                sair
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/about"
+                aria-current={current === "about" ? "page" : undefined}
+              >
+                Sobre
+              </Link>
+              <Link to="/login" className="btn btn-primary">
+                entrar →
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </header>

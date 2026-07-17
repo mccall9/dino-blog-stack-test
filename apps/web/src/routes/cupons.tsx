@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import * as React from "react"
 import { SiteHeader } from "~/components/SiteHeader"
+import { useSession } from "~/utils/session"
 
 export const Route = createFileRoute("/cupons")({
   component: CuponsPage,
@@ -84,7 +85,15 @@ const COUPONS: Coupon[] = [
 ]
 
 function CuponsPage() {
+  const navigate = useNavigate()
+  const { isLoggedIn, ready } = useSession()
   const [copied, setCopied] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    if (ready && !isLoggedIn) {
+      void navigate({ to: "/login" })
+    }
+  }, [ready, isLoggedIn, navigate])
 
   async function copyCode(code: string, id: string) {
     if (code === "—") return
@@ -95,6 +104,17 @@ function CuponsPage() {
     } catch {
       /* ignore */
     }
+  }
+
+  if (!ready || !isLoggedIn) {
+    return (
+      <div className="cupons-page">
+        <SiteHeader current="cupons" />
+        <main id="conteudo" className="cupons-shell">
+          <p className="cupons-note">Redirecionando para entrar…</p>
+        </main>
+      </div>
+    )
   }
 
   return (
@@ -135,9 +155,9 @@ function CuponsPage() {
                       {copied === c.id ? "copiado ✓" : "copiar código"}
                     </button>
                   ) : (
-                    <Link to="/login" className="btn btn-ghost">
-                      avisar-me
-                    </Link>
+                    <button type="button" className="btn btn-ghost" disabled>
+                      em breve
+                    </button>
                   )}
                 </div>
               </div>
