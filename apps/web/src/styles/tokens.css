@@ -1,20 +1,17 @@
-/**
- * Brand starting point for stack-test.
- * Evolution allowed — document new tokens in DESIGN.md when you add them.
- */
 :root {
-  --ink: #171917;
-  --muted: #5c615c;
-  --paper: #fbfcf9;
-  --soft: #eef0eb;
-  --line: #d8dad4;
+  --ink: #141414;
+  --muted: #6b6b6b;
+  --paper: #f6f6f4;
+  --surface: #ffffff;
+  --soft: #ecece8;
+  --line: #e4e4e0;
   --green: #1f9a52;
   --green-dark: #14703c;
   --mint: #d8f0e0;
-  --cream: #f3f6ef;
-  --radius: 1.25rem;
-  --radius-lg: 1.75rem;
-  --max: 1100px;
+  --radius: 1rem;
+  --radius-lg: 1.25rem;
+  --max: 720px;
+  --max-wide: 1080px;
   --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --press-duration: 150ms;

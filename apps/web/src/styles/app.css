@@ -1,7 +1,10 @@
 @import "tailwindcss" source("../");
 @import "./tokens.css";
 
-/* Freer club shell — skills: baseline-ui, emil, a11y. Evolution OK. */
+/**
+ * Home inspired by biip.club directory calm + marclou/RCD product rules.
+ * One club, not a marketplace. Skills: baseline-ui, emil, a11y.
+ */
 
 @layer base {
   html {
@@ -12,11 +15,9 @@
     html {
       scroll-behavior: auto;
     }
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
+    * {
       transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
     }
   }
 
@@ -81,20 +82,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  min-height: 48px;
-  padding: 0.75rem 1.35rem;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0.65rem 1.15rem;
   border-radius: 999px;
   border: 1px solid transparent;
   font: inherit;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   cursor: pointer;
   transition:
     transform var(--press-duration) var(--ease-out),
     background var(--press-duration) var(--ease-out),
-    border-color var(--press-duration) var(--ease-out),
-    box-shadow var(--press-duration) var(--ease-out);
+    border-color var(--press-duration) var(--ease-out);
 }
 
 .btn:active {
@@ -102,70 +102,54 @@
 }
 
 .btn-primary {
-  background: var(--green);
+  background: var(--ink);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(31, 154, 82, 0.22);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn-primary:hover {
+    background: #000;
+  }
+}
+
+.btn-accent {
+  background: var(--green);
+  color: #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-accent:hover {
     background: var(--green-dark);
   }
 }
 
-.btn-secondary {
-  background: var(--paper);
+.btn-ghost {
+  background: transparent;
   border-color: var(--line);
   color: var(--ink);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .btn-secondary:hover {
+  .btn-ghost:hover {
+    background: var(--surface);
     border-color: var(--ink);
-    background: var(--soft);
   }
 }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--green-dark);
-}
-
-.eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-}
-
-.club-page {
-  min-height: 100dvh;
-  background:
-    radial-gradient(900px 420px at 100% -10%, var(--mint), transparent 60%),
-    radial-gradient(700px 360px at -5% 20%, var(--cream), transparent 55%),
-    var(--paper);
-}
-
+/* —— Shell (biip calm) —— */
 .site-header {
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
   backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
 }
 
 .site-nav {
-  width: min(calc(100% - 2rem), var(--max));
+  width: min(calc(100% - 2rem), var(--max-wide));
   margin-inline: auto;
-  min-height: 4rem;
+  min-height: 3.75rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -175,14 +159,14 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 0.98rem;
 }
 
 .brand-mark {
-  width: 2rem;
-  height: 2rem;
+  width: 1.75rem;
+  height: 1.75rem;
   object-fit: contain;
 }
 
@@ -190,10 +174,10 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.25rem 1.1rem;
-  font-size: 0.95rem;
+  gap: 0.5rem 1rem;
+  font-size: 0.92rem;
   font-weight: 500;
+  color: var(--muted);
 }
 
 .nav-links a:not(.btn) {
@@ -204,190 +188,235 @@
 
 @media (hover: hover) and (pointer: fine) {
   .nav-links a:not(.btn):hover {
-    color: var(--green-dark);
+    color: var(--ink);
   }
 }
 
 .nav-links a[aria-current="page"]:not(.btn) {
+  color: var(--ink);
   font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-decoration-color: var(--green);
-  text-underline-offset: 0.35em;
 }
 
-.club-shell {
-  width: min(calc(100% - 2rem), var(--max));
+/* —— Discover-style first fold (one club) —— */
+.discover {
+  width: min(calc(100% - 2rem), var(--max-wide));
   margin-inline: auto;
+  padding: 3.5rem 0 4rem;
   display: grid;
-  gap: 4.5rem;
-  padding: 2rem 0 4.5rem;
+  justify-items: center;
+  gap: 1.75rem;
+  text-align: center;
 }
 
-.stack-badge {
+.stack-pill {
   display: inline-flex;
-  align-items: center;
+  padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  padding: 0.35rem 0.75rem;
-  background: var(--ink);
-  color: #fff;
-  font-size: 0.68rem;
+  background: var(--soft);
+  color: var(--muted);
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-.club-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 2.75rem 3rem;
-  align-items: center;
-  padding: 1rem 0 0.5rem;
-}
-
-.club-hero h1 {
-  margin: 0.75rem 0 1rem;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  line-height: 1.02;
-  font-weight: 600;
+.discover h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.25rem, 5.5vw, 3.35rem);
+  line-height: 1.08;
   letter-spacing: -0.04em;
+  font-weight: 600;
   text-wrap: balance;
+  color: var(--ink);
 }
 
-.club-hero-lede {
-  margin: 0 0 1.25rem;
-  max-width: 32rem;
+.discover-sub {
+  margin: 0;
+  max-width: 34rem;
   color: var(--muted);
-  font-size: 1.1rem;
-  line-height: 1.55;
+  font-size: 1.05rem;
+  line-height: 1.5;
   text-wrap: pretty;
 }
 
-.club-hero-points {
-  margin: 0 0 1.75rem;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.65rem;
+.discover-sub a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
 }
 
-.club-hero-points li {
-  display: flex;
-  gap: 0.65rem;
-  align-items: flex-start;
-  color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.45;
-  text-wrap: pretty;
-}
-
-.club-hero-points li span {
-  flex: 0 0 auto;
-  margin-top: 0.15rem;
-  width: 1.35rem;
-  height: 1.35rem;
-  border-radius: 999px;
-  background: var(--mint);
-  color: var(--green-dark);
-  font-size: 0.7rem;
-  font-weight: 700;
-  display: grid;
-  place-items: center;
-}
-
-.club-hero-actions {
+.discover-cta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
 }
 
-.club-hero-art {
-  margin: 0;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.25rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
   border: 1px solid var(--line);
-  background: var(--soft);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.7) inset,
-    0 28px 60px rgba(23, 25, 23, 0.08);
-  transform: rotate(-0.6deg);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
-.club-hero-art img {
-  width: 100%;
-  aspect-ratio: 5 / 4;
-  object-fit: cover;
-  object-position: center 38%;
+.chip[data-active="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
 }
 
-.bento {
+/* Product card — biip community card, single club */
+.product-stage {
+  width: min(calc(100% - 2rem), var(--max-wide));
+  margin: 0 auto 4rem;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 1rem;
+  justify-items: center;
 }
 
-.panel {
+.club-card {
+  width: min(100%, 380px);
+  text-align: left;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background: #fff;
-  padding: 1.35rem 1.4rem;
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(20, 20, 20, 0.06);
+  transition: transform var(--press-duration) var(--ease-out);
 }
 
-.panel-soft {
-  background: var(--soft);
+@media (hover: hover) and (pointer: fine) {
+  a.club-card:hover {
+    transform: translateY(-2px);
+  }
 }
 
-.panel h2,
-.panel h3 {
-  margin: 0.4rem 0 0.55rem;
+.club-card-cover {
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(145deg, var(--mint), var(--soft) 55%, #fff);
+  overflow: hidden;
+}
+
+.club-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+.club-card-body {
+  padding: 1rem 1.1rem 1.15rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.club-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.club-card-avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.club-card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.club-card-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-wrap: pretty;
+}
+
+.club-card-stats {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.club-card-stats strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Below fold — one idea per block (marclou) */
+.below {
+  width: min(calc(100% - 2rem), 640px);
+  margin: 0 auto 4rem;
+  display: grid;
+  gap: 2.5rem;
+  text-align: center;
+}
+
+.below h2 {
+  margin: 0 0 0.5rem;
   font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
-.panel p {
+.below p {
   margin: 0;
   color: var(--muted);
   line-height: 1.55;
-  font-size: 0.98rem;
   text-wrap: pretty;
 }
 
-.panel-head {
-  margin-bottom: 0.85rem;
-}
-
-.text-link {
-  font-weight: 600;
-  color: var(--green-dark);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 .site-footer {
+  width: min(calc(100% - 2rem), var(--max-wide));
+  margin: 0 auto;
+  padding: 1.5rem 0 2.5rem;
+  border-top: 1px solid var(--line);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.75rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
-@media (max-width: 880px) {
-  .club-hero,
-  .bento {
-    grid-template-columns: 1fr;
+@media (max-width: 640px) {
+  .discover {
+    padding-top: 2.25rem;
   }
 
-  .club-hero-art {
-    transform: none;
-    order: -1;
+  .discover-cta .btn {
+    width: 100%;
   }
 
-  .club-hero-actions .btn {
+  .club-card {
     width: 100%;
   }
 }

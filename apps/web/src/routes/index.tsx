@@ -3,108 +3,114 @@ import { SiteHeader } from "~/components/SiteHeader"
 
 export const Route = createFileRoute("/")({
   component: ClubHome,
+  head: () => ({
+    meta: [
+      {
+        title: "Pense em voz alta — Clube dos Curiosos · dino.blog",
+      },
+      {
+        name: "description",
+        content:
+          "O Clube dos Curiosos: conversas reais de quem pensa e constrói. Entre para participar.",
+      },
+    ],
+  }),
 })
+
+const TOPICS = [
+  { id: "todas", label: "todas", active: true },
+  { id: "ideias", label: "ideias" },
+  { id: "perguntas", label: "perguntas" },
+  { id: "projetos", label: "projetos" },
+  { id: "build", label: "build in public" },
+] as const
 
 function ClubHome() {
   return (
-    <div className="club-page">
+    <div>
       <SiteHeader current="home" />
 
-      <main id="conteudo" className="club-shell">
-        <div>
-          <span className="stack-badge">stack test · preview</span>
-        </div>
+      <main id="conteudo">
+        {/* Fold 1 — marclou: hero alone + one CTA; RCD: problem/desire first */}
+        <section className="discover" aria-labelledby="hero-title">
+          <span className="stack-pill">stack test · preview</span>
 
-        <section className="club-hero" aria-labelledby="club-hero-title">
-          <div>
-            <span className="eyebrow">Clube dos Curiosos</span>
-            <h1 id="club-hero-title">
-              Onde a curiosidade
-              <br />
-              encontra companhia
-            </h1>
-            <p className="club-hero-lede">
-              Pessoas pensando em voz alta, fazendo perguntas e mostrando o que
-              ainda está em construção — agora.
-            </p>
-            <ul className="club-hero-points" aria-label="O que acontece aqui">
-              <li>
-                <span aria-hidden="true">1</span>
-                Ideias e projetos em andamento
-              </li>
-              <li>
-                <span aria-hidden="true">2</span>
-                Perguntas sem pose de especialista
-              </li>
-              <li>
-                <span aria-hidden="true">3</span>
-                Conversas reais, não catálogo de clubes
-              </li>
-            </ul>
-            <div className="club-hero-actions">
-              <Link to="/login" className="btn btn-primary">
-                Entrar para participar
-              </Link>
-              <Link to="/about" className="btn btn-secondary">
-                Conhecer o clube
-              </Link>
-            </div>
+          <h1 id="hero-title">Pense em voz alta. Ache quem responde.</h1>
+
+          <p className="discover-sub">
+            O <strong className="text-[var(--ink)] font-semibold">Clube dos Curiosos</strong>{" "}
+            — conversas reais, sem marketplace de comunidades.{" "}
+            <Link to="/about">como funciona</Link>
+          </p>
+
+          <div className="discover-cta">
+            <Link to="/login" className="btn btn-accent">
+              Entrar para participar
+            </Link>
           </div>
-          <figure className="club-hero-art">
-            <img
-              src="/assets/dino-blog-hero.png"
-              alt="Dino investigando uma ideia entre livros, uma lâmpada e objetos curiosos"
-              width={1984}
-              height={793}
-            />
-          </figure>
+
+          {/* Chips = temas do clube, NÃO lista de comunidades (anti-biip marketplace) */}
+          <div className="chips" role="list" aria-label="Temas no clube">
+            {TOPICS.map((t) => (
+              <span
+                key={t.id}
+                role="listitem"
+                className="chip"
+                data-active={t.active ? "true" : "false"}
+              >
+                {t.label}
+              </span>
+            ))}
+          </div>
         </section>
 
-        <section className="bento" aria-label="O que vem a seguir neste preview">
-          <article className="panel">
-            <div className="panel-head">
-              <span className="eyebrow">Acontecendo</span>
-              <h2>Conversas recentes</h2>
+        {/* Product before explanation — single club card (biip card pattern, one thing) */}
+        <section className="product-stage" aria-label="O clube">
+          <Link to="/login" className="club-card">
+            <div className="club-card-cover">
+              <img
+                src="/assets/dino-blog-hero.png"
+                alt=""
+                width={640}
+                height={400}
+              />
             </div>
-            <p>
-              Aqui entram as prévias públicas do feed. No stack-test ainda é
-              placeholder — a lógica Supabase chega com o agent{" "}
-              <strong className="text-[var(--ink)]">supabase-guard</strong> e o
-              shell do{" "}
-              <strong className="text-[var(--ink)]">product-shell</strong>.
-            </p>
-            <p className="mt-4">
-              <Link to="/login" className="text-link">
-                Entrar para participar →
-              </Link>
-            </p>
-          </article>
+            <div className="club-card-body">
+              <div className="club-card-meta">
+                <img
+                  className="club-card-avatar"
+                  src="/assets/favicon-dino-180.png"
+                  alt=""
+                  width={28}
+                  height={28}
+                />
+                <span className="club-card-name">Clube dos Curiosos</span>
+              </div>
+              <p className="club-card-desc">
+                Comunidade de gente que pensa, pergunta e mostra o que ainda
+                está em construção — sem pose de especialista.
+              </p>
+              <p className="club-card-stats">
+                <strong>1</strong> clube · conversas em tempo real ·{" "}
+                <strong>entrar grátis no preview</strong>
+              </p>
+            </div>
+          </Link>
+        </section>
 
-          <article className="panel panel-soft">
-            <div className="panel-head">
-              <span className="eyebrow">Um só espaço</span>
-              <h2>Clube dos Curiosos</h2>
-            </div>
+        <section className="below" aria-labelledby="why-title">
+          <div>
+            <h2 id="why-title">Por que não é um diretório de comunidades</h2>
             <p>
-              Um lugar para curiosidade sem performance. Este preview valida a
-              stack nova com agents e skills — design pode evoluir.
+              Um só espaço. Menos ruído, mais companhia. Você entra, lê o que
+              está vivo e participa — em vez de escolher entre 50 clubs vazios.
             </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Link to="/about" className="btn btn-secondary">
-                Sobre
-              </Link>
-              <Link to="/ideias" className="btn btn-secondary">
-                Ideias
-              </Link>
-            </div>
-          </article>
+          </div>
         </section>
 
         <footer className="site-footer">
-          <span>dino-blog-stack-test</span>
-          <span>
-            agents: home-designer · product-shell · content-builder · …
-          </span>
+          <span>dino.blog · stack test</span>
+          <span>marclou · revenue · ui craft</span>
         </footer>
       </main>
     </div>

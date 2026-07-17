@@ -7,23 +7,17 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   return (
-    <div className="club-page min-h-screen">
+    <div style={{ minHeight: "100dvh", background: "var(--paper)" }}>
       <SiteHeader current="login" />
-      <main id="conteudo" className="club-shell max-w-lg">
-        <div className="club-card">
-          <span className="eyebrow">Entrar</span>
-          <h1 className="mt-2 mb-2 text-3xl font-semibold tracking-tight">
-            Login OTP (próxima fase)
-          </h1>
-          <p className="m-0 text-[var(--muted)] leading-relaxed">
-            Auth Supabase OTP 6–8 dígitos entra na Fase 2 deste stack test.
-            Enquanto o site online está em manutenção, o fluxo real fica
-            pausado.
-          </p>
-          <Link to="/" className="btn btn-secondary mt-5 inline-flex">
-            ← Home
-          </Link>
-        </div>
+      <main id="conteudo" className="discover" style={{ paddingTop: "2.5rem" }}>
+        <h1>Entrar no clube</h1>
+        <p className="discover-sub">
+          OTP por e-mail (6–8 dígitos) na Fase 2. Por enquanto este botão é o
+          placeholder do fluxo.
+        </p>
+        <Link to="/" className="btn btn-accent">
+          Voltar à home
+        </Link>
       </main>
     </div>
   )
