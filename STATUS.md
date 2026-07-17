@@ -11,6 +11,10 @@
 - [x] API health only (Elysia)
 - [x] AGENTS.md + PHASES for agents/skills workflow
 
+## Live
+- GitHub: https://github.com/mccall9/dino-blog-stack-test  
+- Vercel: https://dino-blog-stack-test.vercel.app  
+
 ## Next
-- [ ] GitHub + Vercel URL
+- [x] GitHub + Vercel URL
 - [ ] Auth OTP (Fase 2)

@@ -14,7 +14,7 @@ function ClubHome() {
         <div className="flex flex-wrap items-center gap-2">
           <span className="stack-badge">stack test · not production</span>
           <span className="text-xs text-[var(--muted)]">
-            Preview Vercel · fonte DM Sans (igual ao site online)
+            DM Sans · tokens do site online
           </span>
         </div>
 
@@ -64,22 +64,15 @@ function ClubHome() {
                 pensando e construindo.
               </p>
             </div>
-            <Link
-              to="/login"
-              className="shrink-0 text-sm font-semibold text-[var(--green-dark)]"
-            >
+            <Link to="/login" className="text-link shrink-0">
               Entrar para participar →
             </Link>
           </div>
-          <div className="club-card club-card-muted">
+          <div className="club-card club-card-muted" role="status">
             <p className="m-0">
               <strong className="text-[var(--ink)]">Stack test</strong> — feed
-              live (Supabase) entra nas próximas fases deste preview. Produção
-              está em manutenção em{" "}
-              <a
-                className="font-semibold text-[var(--green-dark)] underline underline-offset-2"
-                href="https://dinoclub.blog"
-              >
+              live (Supabase) nas próximas fases. Produção em manutenção:{" "}
+              <a className="text-link" href="https://dinoclub.blog">
                 dinoclub.blog
               </a>
               .
@@ -99,13 +92,13 @@ function ClubHome() {
             </div>
           </div>
           <article className="club-card">
-            <h3 className="mt-0 mb-2 text-xl font-semibold">
+            <h3 className="mt-0 mb-2 text-xl font-semibold text-balance">
               Clube dos Curiosos
             </h3>
-            <p className="m-0 text-[var(--muted)] leading-relaxed">
+            <p className="m-0 text-[var(--muted)] leading-relaxed text-pretty">
               Um espaço para curiosidade sem performance. Este monorepo valida a
-              stack Bun · Elysia · Eden Treaty · TanStack Start · Tailwind —
-              orquestrado com agents e skills.
+              stack Bun · Elysia · TanStack Start · Tailwind — com a mesma
+              identidade visual do site online.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link to="/login" className="btn btn-primary">
@@ -121,12 +114,9 @@ function ClubHome() {
         <footer className="border-t border-[var(--line)] pt-6 text-sm text-[var(--muted)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span>dino-blog-stack-test · experimental</span>
-            <a
-              href="https://github.com/mccall9/dino-platform"
-              className="text-[var(--green-dark)] underline underline-offset-2"
-            >
-              related: dino-platform
-            </a>
+            <span className="text-xs">
+              skills: baseline-ui · a11y · emil-design-eng
+            </span>
           </div>
         </footer>
       </main>

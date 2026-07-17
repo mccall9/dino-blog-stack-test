@@ -1,22 +1,27 @@
 @import "tailwindcss" source("../");
+@import "./tokens.css";
 
-/* Match production dino.blog tokens + DM Sans */
-:root {
-  --ink: #171917;
-  --muted: #6f746f;
-  --paper: #ffffff;
-  --soft: #f2f3f0;
-  --line: #dedfda;
-  --green: #229b55;
-  --green-dark: #176f3d;
-  --mint: #dff3e5;
-  --radius: 30px;
-  --max: 1120px;
-}
+/**
+ * Product UI — brand locked (DESIGN.md).
+ * Skills applied: baseline-ui, emil-design-eng, fixing-accessibility.
+ */
 
 @layer base {
   html {
     scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   html,
@@ -24,7 +29,8 @@
     margin: 0;
     color: var(--ink);
     background: var(--paper);
-    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans);
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -38,6 +44,15 @@
     display: block;
   }
 
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+  }
+
   .sr-only {
     position: absolute;
     width: 1px;
@@ -49,36 +64,73 @@
     white-space: nowrap;
     border-width: 0;
   }
+
+  .sr-only:focus {
+    position: fixed;
+    left: 12px;
+    top: 12px;
+    z-index: var(--z-skip);
+    width: auto;
+    height: auto;
+    margin: 0;
+    clip: auto;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: var(--ink);
+    color: #fff;
+    font-weight: 600;
+    white-space: normal;
+  }
 }
 
+/* Buttons — brand green + emil press */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
+  min-height: 48px;
   border-radius: 999px;
-  padding: 0.7rem 1.15rem;
+  padding: 0.75rem 1.2rem;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.2;
   border: 1px solid transparent;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  transition:
+    background var(--press-duration) var(--ease-out),
+    border-color var(--press-duration) var(--ease-out),
+    transform var(--press-duration) var(--ease-out),
+    color var(--press-duration) var(--ease-out);
 }
+
+.btn:active {
+  transform: scale(0.97);
+}
+
 .btn-primary {
   background: var(--green);
   color: #fff;
 }
-.btn-primary:hover {
-  background: var(--green-dark);
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: var(--green-dark);
+  }
 }
+
 .btn-secondary {
   background: transparent;
   color: var(--ink);
   border-color: var(--line);
 }
-.btn-secondary:hover {
-  border-color: var(--ink);
-  background: var(--soft);
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover {
+    border-color: var(--ink);
+    background: var(--soft);
+  }
 }
 
 .eyebrow {
@@ -90,7 +142,9 @@
   color: var(--green-dark);
 }
 
+/* Atmosphere matches production club home (mint/soft only) */
 .club-page {
+  min-height: 100dvh;
   background:
     radial-gradient(
       ellipse 65% 40% at 92% 6%,
@@ -103,7 +157,6 @@
       transparent 52%
     ),
     var(--paper);
-  min-height: 100vh;
 }
 
 .club-shell {
@@ -112,6 +165,72 @@
   display: grid;
   gap: 5rem;
   padding-block: 2.5rem 4rem;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.site-nav {
+  width: min(calc(100% - 2rem), var(--max));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 64px;
+  padding-block: 0.65rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.nav-links a:not(.btn) {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 2px;
+  color: var(--ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:not(.btn):hover {
+    color: var(--green-dark);
+  }
+}
+
+.nav-links a[aria-current="page"]:not(.btn) {
+  text-decoration: underline;
+  text-decoration-color: var(--green);
+  text-underline-offset: 4px;
+  font-weight: 600;
 }
 
 .club-hero {
@@ -127,6 +246,7 @@
   line-height: 1.03;
   letter-spacing: -0.045em;
   font-weight: 600;
+  text-wrap: balance;
 }
 
 .club-hero-lede {
@@ -135,6 +255,7 @@
   color: #4f554f;
   font-size: 1.05rem;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
 .club-hero-points {
@@ -151,6 +272,7 @@
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.45;
+  text-wrap: pretty;
 }
 
 .club-hero-points li::before {
@@ -174,7 +296,7 @@
 .club-hero-art {
   margin: 0;
   position: relative;
-  border-radius: 1.75rem;
+  border-radius: calc(var(--radius) - 2px);
   overflow: hidden;
   border: 1px solid var(--line);
   background: linear-gradient(160deg, #e8f7ed 0%, #f7f8f5 55%, #fff 100%);
@@ -204,6 +326,7 @@
   font-size: clamp(1.5rem, 3vw, 2.1rem);
   letter-spacing: -0.03em;
   font-weight: 600;
+  text-wrap: balance;
 }
 
 .club-section-head p {
@@ -212,12 +335,13 @@
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .club-card {
   border: 1px solid var(--line);
   border-radius: 1.5rem;
-  background: #fff;
+  background: var(--paper);
   padding: 1.5rem;
 }
 
@@ -226,6 +350,7 @@
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .stack-badge {
@@ -239,15 +364,29 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 0.25rem 0.65rem;
+  padding: 0.3rem 0.7rem;
+}
+
+.text-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media (max-width: 860px) {
   .club-hero {
     grid-template-columns: 1fr;
   }
+
   .club-section-head {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .club-hero-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
