@@ -284,13 +284,15 @@
   color: #fff;
 }
 
-/* Card row — left aligned, fills remaining height without overflow */
+/* Card row — further left + slightly lower */
 .product-stage {
   min-height: 0;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding-left: clamp(0px, 2vw, 1rem);
+  padding-left: 0;
+  margin-left: clamp(-0.5rem, -2vw, 0);
+  margin-top: 0.75rem;
   overflow: hidden;
 }
 
