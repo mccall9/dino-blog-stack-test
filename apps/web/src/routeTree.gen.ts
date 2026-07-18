@@ -4,7 +4,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CuponsRouteImport } from './routes/cupons'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SkillsIndexRouteImport } from './routes/skills.index'
+import { Route as SkillsIdRouteImport } from './routes/skills.$id'
 import { Route as CommunityClubeDosCuriososRouteImport } from './routes/community.clube-dos-curiosos'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 
@@ -23,10 +26,25 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SkillsRoute = SkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SkillsIndexRoute = SkillsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SkillsRoute,
+} as any)
+const SkillsIdRoute = SkillsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => SkillsRoute,
 } as any)
 const CommunityClubeDosCuriososRoute =
   CommunityClubeDosCuriososRouteImport.update({
@@ -43,16 +61,21 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/skills': typeof SkillsRouteWithChildren
   '/cupons': typeof CuponsRoute
   '/login': typeof LoginRoute
+  '/skills/': typeof SkillsIndexRoute
+  '/skills/$id': typeof SkillsIdRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
   '/auth/callback': typeof AuthCallbackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/skills': typeof SkillsIndexRoute
   '/cupons': typeof CuponsRoute
   '/login': typeof LoginRoute
+  '/skills/$id': typeof SkillsIdRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
   '/auth/callback': typeof AuthCallbackRoute
 }
@@ -60,8 +83,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/skills': typeof SkillsRouteWithChildren
   '/cupons': typeof CuponsRoute
   '/login': typeof LoginRoute
+  '/skills/': typeof SkillsIndexRoute
+  '/skills/$id': typeof SkillsIdRoute
   '/community/clube-dos-curiosos': typeof CommunityClubeDosCuriososRoute
   '/auth/callback': typeof AuthCallbackRoute
 }
@@ -70,24 +96,32 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/skills'
     | '/cupons'
     | '/login'
+    | '/skills/'
+    | '/skills/$id'
     | '/community/clube-dos-curiosos'
     | '/auth/callback'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/skills'
     | '/cupons'
     | '/login'
+    | '/skills/$id'
     | '/community/clube-dos-curiosos'
     | '/auth/callback'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/skills'
     | '/cupons'
     | '/login'
+    | '/skills/'
+    | '/skills/$id'
     | '/community/clube-dos-curiosos'
     | '/auth/callback'
   fileRoutesById: FileRoutesById
@@ -95,6 +129,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  SkillsRoute: typeof SkillsRouteWithChildren
   CuponsRoute: typeof CuponsRoute
   LoginRoute: typeof LoginRoute
   CommunityClubeDosCuriososRoute: typeof CommunityClubeDosCuriososRoute
@@ -117,6 +152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/skills': {
+      id: '/skills'
+      path: '/skills'
+      fullPath: '/skills'
+      preLoaderRoute: typeof SkillsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cupons': {
       id: '/cupons'
       path: '/cupons'
@@ -130,6 +172,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/skills/': {
+      id: '/skills/'
+      path: '/'
+      fullPath: '/skills/'
+      preLoaderRoute: typeof SkillsIndexRouteImport
+      parentRoute: typeof SkillsRoute
+    }
+    '/skills/$id': {
+      id: '/skills/$id'
+      path: '/$id'
+      fullPath: '/skills/$id'
+      preLoaderRoute: typeof SkillsIdRouteImport
+      parentRoute: typeof SkillsRoute
     }
     '/community/clube-dos-curiosos': {
       id: '/community/clube-dos-curiosos'
@@ -148,9 +204,24 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface SkillsRouteChildren {
+  SkillsIndexRoute: typeof SkillsIndexRoute
+  SkillsIdRoute: typeof SkillsIdRoute
+}
+
+const SkillsRouteChildren: SkillsRouteChildren = {
+  SkillsIndexRoute,
+  SkillsIdRoute,
+}
+
+const SkillsRouteWithChildren = SkillsRoute._addFileChildren(
+  SkillsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute,
   AboutRoute,
+  SkillsRoute: SkillsRouteWithChildren,
   CuponsRoute,
   LoginRoute,
   CommunityClubeDosCuriososRoute,

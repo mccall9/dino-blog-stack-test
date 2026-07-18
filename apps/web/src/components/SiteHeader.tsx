@@ -2,7 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router"
 import { logoutSession, useSession } from "~/utils/session"
 
 type Props = {
-  current?: "home" | "cupons" | "about" | "login"
+  current?: "home" | "cupons" | "about" | "login" | "skills"
 }
 
 export function SiteHeader({ current = "home" }: Props) {
@@ -39,6 +39,12 @@ export function SiteHeader({ current = "home" }: Props) {
             Depois do login: Cupons + sair  (Sobre some)
             Cada destino continua em rota/página própria.
           */}
+          <Link
+            to="/skills"
+            aria-current={current === "skills" ? "page" : undefined}
+          >
+            Skills
+          </Link>
           {ready && isLoggedIn ? (
             <>
               <Link
