@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { SiteHeader } from "~/components/SiteHeader"
+import { useSession } from "~/utils/session"
 
 export const Route = createFileRoute("/community/clube-dos-curiosos")({
   component: ClubDetailPage,
@@ -9,15 +10,57 @@ export const Route = createFileRoute("/community/clube-dos-curiosos")({
       {
         name: "description",
         content:
-          "Um lugar leve para compartilhar ideias, perguntas, descobertas e coisas que ainda estão sendo construídas.",
+          "Comunidade de gente que pensa, pergunta e mostra o que ainda está em construção. Entre para participar.",
       },
     ],
   }),
 })
 
-const TOPICS = ["Ideias", "Criando", "Tecnologia", "Descobertas", "Perguntas"]
+const TOPICS = [
+  "Ideias",
+  "Perguntas",
+  "Projetos",
+  "Build in public",
+  "Descobertas",
+]
+
+/** Preview conversations until /feed is real */
+const PREVIEW_THREADS = [
+  {
+    id: "1",
+    author: "Isa",
+    topic: "perguntas",
+    title: "Como vocês validam uma ideia sem gastar 3 meses?",
+    excerpt:
+      "Estou entre um protótipo feio e um deck bonito. O que funcionou de verdade pra vocês?",
+    replies: 12,
+    when: "há 2h",
+  },
+  {
+    id: "2",
+    author: "Rafa",
+    topic: "build in public",
+    title: "Shippei o hero do clube em público — o que mudaria?",
+    excerpt:
+      "Sem scroll, um card, um CTA. Sinto que falta prova. Crítica honestamente.",
+    replies: 8,
+    when: "há 5h",
+  },
+  {
+    id: "3",
+    author: "Dino",
+    topic: "projetos",
+    title: "O que o dino já sabe: inventário de skills no ar",
+    excerpt:
+      "Publiquei o pack dino-skills. Quer ver o que entra no setup de verdade?",
+    replies: 21,
+    when: "ontem",
+  },
+]
 
 function ClubDetailPage() {
+  const { isLoggedIn, ready } = useSession()
+
   return (
     <div className="detail-page">
       <SiteHeader current="home" />
@@ -27,40 +70,71 @@ function ClubDetailPage() {
           ← Voltar
         </Link>
 
-        <section className="detail-hero" aria-labelledby="detail-title">
-          <div className="detail-hero-copy">
-            <span className="detail-eyebrow">Comunidade do dino.blog</span>
-            <h1 id="detail-title">Clube dos Curiosos</h1>
-            <p className="detail-lede">
-              Um lugar leve para compartilhar ideias, perguntas, descobertas e
-              coisas que ainda estão sendo construídas.
+        {/* Hero: cover + identity (extends the home card) */}
+        <section className="club-detail-hero" aria-labelledby="detail-title">
+          <div className="club-detail-cover">
+            <img
+              src="/assets/dino-blog-hero.png"
+              alt=""
+              width={1200}
+              height={480}
+            />
+          </div>
+
+          <div className="club-detail-identity">
+            <div className="club-detail-identity-row">
+              <img
+                className="club-detail-avatar"
+                src="/assets/favicon-dino-180.png"
+                alt=""
+                width={56}
+                height={56}
+              />
+              <div>
+                <p className="detail-eyebrow">Comunidade · dino.blog</p>
+                <h1 id="detail-title">Clube dos Curiosos</h1>
+              </div>
+            </div>
+
+            <p className="club-detail-lede">
+              Comunidade de gente que pensa, pergunta e mostra o que ainda está
+              em construção — sem pose de especialista.
             </p>
+
+            <p className="club-detail-stats">
+              <strong>1</strong> clube ·{" "}
+              <strong>conversas</strong> em tempo real ·{" "}
+              <span className="club-detail-open">aberto no preview</span>
+            </p>
+
             <div className="detail-topics" aria-label="Assuntos da comunidade">
               {TOPICS.map((t) => (
                 <span key={t}>{t}</span>
               ))}
             </div>
+
             <div className="detail-actions">
-              <Link
-                to="/login"
-                search={{ next: "/feed" } as never}
-                className="btn btn-primary"
-              >
-                Entrar no clube
+              {ready && isLoggedIn ? (
+                <Link to="/cupons" className="btn btn-primary">
+                  Ver cupons →
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  search={{ next: "/community/clube-dos-curiosos" } as never}
+                  className="btn btn-primary"
+                >
+                  Entrar no clube
+                </Link>
+              )}
+              <Link to="/about" className="btn btn-ghost">
+                Sobre o dino
               </Link>
-              <span className="detail-meta">Comunidade aberta</span>
             </div>
           </div>
-          <figure className="detail-image">
-            <img
-              src="/assets/dino-blog-hero.png"
-              alt="Dino investigando uma ideia entre livros, uma lâmpada e pequenos objetos coloridos"
-              width={1984}
-              height={793}
-            />
-          </figure>
         </section>
 
+        {/* Story + rules */}
         <section className="detail-content">
           <div className="detail-story">
             <span className="detail-eyebrow">Sobre este espaço</span>
@@ -77,19 +151,77 @@ function ClubDetailPage() {
               <li>Traga contexto.</li>
               <li>Escute com curiosidade.</li>
               <li>Discorde com respeito.</li>
+              <li>Mostre o processo, não só o resultado.</li>
             </ul>
           </aside>
+        </section>
+
+        {/* Conversations preview */}
+        <section
+          className="club-threads"
+          aria-labelledby="threads-title"
+        >
+          <div className="club-threads-head">
+            <div>
+              <span className="detail-eyebrow">Dentro do clube</span>
+              <h2 id="threads-title">Conversas recentes</h2>
+            </div>
+            <p className="club-threads-note">
+              Preview · feed completo após login
+            </p>
+          </div>
+
+          <ul className="club-thread-list">
+            {PREVIEW_THREADS.map((th) => (
+              <li key={th.id}>
+                <Link
+                  to="/login"
+                  search={
+                    {
+                      next: "/community/clube-dos-curiosos",
+                    } as never
+                  }
+                  className="club-thread-card"
+                >
+                  <div className="club-thread-meta">
+                    <span className="club-thread-author">{th.author}</span>
+                    <span className="club-thread-dot" aria-hidden>
+                      ·
+                    </span>
+                    <span className="club-thread-topic">{th.topic}</span>
+                    <span className="club-thread-when">{th.when}</span>
+                  </div>
+                  <h3 className="club-thread-title">{th.title}</h3>
+                  <p className="club-thread-excerpt">{th.excerpt}</p>
+                  <p className="club-thread-footer">
+                    <strong>{th.replies}</strong> respostas · entrar para
+                    participar
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className="detail-cta-block" aria-labelledby="join-title">
           <h2 id="join-title">Pronto para entrar?</h2>
           <p>
-            No preview, o login OTP ainda é stub. O botão leva ao fluxo de
-            entrar — e depois ao feed de conversas.
+            Um clube, conversas reais. Entre para ver cupons, comentar e
+            acompanhar o que o dino está construindo em público.
           </p>
-          <Link to="/login" className="btn btn-primary">
-            Entrar para participar
-          </Link>
+          {ready && isLoggedIn ? (
+            <Link to="/cupons" className="btn btn-primary">
+              Ir para cupons
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              search={{ next: "/community/clube-dos-curiosos" } as never}
+              className="btn btn-primary"
+            >
+              Entrar para participar
+            </Link>
+          )}
         </section>
       </main>
     </div>
