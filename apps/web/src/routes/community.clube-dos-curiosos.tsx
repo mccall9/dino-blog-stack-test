@@ -28,9 +28,19 @@ function ClubDetailPage() {
       <SiteHeader current="home" />
 
       <main id="conteudo" className="detail-shell">
-        <Link to="/" className="detail-back">
-          ← Voltar
-        </Link>
+        <nav className="detail-crumb" aria-label="Breadcrumb">
+          <Link to="/">Home</Link>
+          <span className="detail-crumb-sep" aria-hidden="true">
+            /
+          </span>
+          <span>Comunidade</span>
+          <span className="detail-crumb-sep" aria-hidden="true">
+            /
+          </span>
+          <span className="detail-crumb-current" aria-current="page">
+            Clube dos Curiosos
+          </span>
+        </nav>
 
         <section className="club-simple" aria-labelledby="detail-title">
           <div className="club-simple-cover">
