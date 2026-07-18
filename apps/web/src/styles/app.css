@@ -466,10 +466,22 @@
   background: var(--paper);
 }
 
+.detail-main {
+  padding-bottom: 4rem;
+}
+
+/* Rail = mesma trilha do site-nav (logo à esquerda) */
+.detail-rail {
+  width: min(100%, var(--max-wide));
+  margin-inline: auto;
+  padding: 1.25rem 1rem 0;
+}
+
+/* Conteúdo do clube continua estreito e centrado */
 .detail-shell {
   width: min(calc(100% - 2rem), 36rem);
   margin-inline: auto;
-  padding: 1.25rem 0 4rem;
+  margin-top: 1.25rem;
   display: grid;
   gap: 1.75rem;
 }
